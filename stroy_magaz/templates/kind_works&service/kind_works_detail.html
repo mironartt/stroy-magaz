@@ -1,0 +1,136 @@
+<style>
+    .border {
+        list-style: none;
+        padding: 0;
+    }
+    .border li {
+        font-family: "Trebuchet MS", "Lucida Sans";
+        padding: 7px 20px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border-left: 10px solid #f05d22;
+        box-shadow: 2px -2px 5px 0 rgba(0,0,0,.1),
+        -2px -2px 5px 0 rgba(0,0,0,.1),
+        2px 2px 5px 0 rgba(0,0,0,.1),
+        -2px 2px 5px 0 rgba(0,0,0,.1);
+        font-size: 20px;
+        letter-spacing: 2px;
+        transition: 0.3s all linear;
+    }
+    .border li:nth-child(2){border-color: #8bc63e;}
+    .border li:nth-child(3){border-color: #fcba30;}
+    .border li:nth-child(4){border-color: #1ccfc9;}
+    .border li:nth-child(5){border-color: #493224;}
+    .border li:hover {border-left: 10px solid transparent;}
+    .border li:nth-child(1):hover {border-right: 10px solid #f05d22;}
+    .border li:nth-child(2):hover {border-right: 10px solid #8bc63e;}
+    .border li:nth-child(3):hover {border-right: 10px solid #fcba30;}
+    .border li:nth-child(4):hover {border-right: 10px solid #1ccfc9;}
+    .border li:nth-child(5):hover {border-right: 10px solid #493224;}
+</style>
+{% extends 'base.html' %}
+{% load static %}
+
+{%  block title %}
+
+    {% if site_settings.site_name %}
+        {{ kind_work.name }} |{{ site_settings.site_name  }}|
+    {% else %}
+        {{ kind_work.name }}
+    {% endif %}
+{% endblock %}
+{% block content %}
+    <div class="page-hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="page-title">{{ kind_work.name }}</h2>
+                    <p class="page-subtitle">
+                        {% if kind_work.intro %}
+                            {{ kind_work.intro }}
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="main">
+        <div class="container">
+        <p class="page-subtitle">
+            <div class="entry-meta">
+                <p class="entry-meta-item entry-categories"><a href="{% url 'home_url' %}">Главная</a></p>
+                <p class="entry-meta-item entry-comments-link"><a href="{% url 'service:kind_works_list_url' %}">Все услуги</a></p>
+                <p class="entry-meta-item entry-comments-link">{{ kind_work }}</p>
+            </div>
+        </p>
+            <div class="row">
+                <div class="col-xl-9 col-lg-8 col-xs-12">
+                    <article class="entry">
+                        {% if kind_work.desctiption %}
+                            {{ kind_work.desctiption|safe }}
+                        {% else %}
+                            <h4>Описание данной статьи еще не готово.</h4>
+                            Для получение подробностей свяжитесь с нами.
+                        {% endif %}
+
+
+                        <br><br><hr>
+
+                        {% if service_kind_works %}
+                            <h2 align="center">СТОИМОСТЬ РАБОТ</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>НАИМЕНОВАНИЕ РАБОТ</th>
+                                        <th>ЦЕНА руб.</th>
+                                        <th>ЕД. ИЗМ.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for service in service_kind_works %}
+
+                                        <tr>
+                                            <th align="center"><a href="{{ service.get_absolute_url }}" style="color: chocolate">{{ service.name }}</a></th>
+                                            <td align="center">
+                                                {% if service.price %}
+                                                    {{ service.price }}
+                                                {% else %}
+                                                    договорная
+                                                {% endif %}
+                                            </td>
+                                            <td align="center">
+                                                {% if service.price  %}
+                                                    {% if service.unit  %}
+                                                        {{ service.unit }}
+                                                    {% else %}
+
+                                                    {% endif %}
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                             <hr>
+                        {% endif %}
+
+
+
+                    <br><br><br>
+                    {% include 'kind_works&service/includes/detail_services_of_kind_work.html' %}
+
+                    </article>
+                </div>
+
+                {% include 'kind_works&service/includes/right_column.html' %}
+
+            </div>
+        </div>
+    </main>
+    {% include 'kind_works&service/includes/gallery_kind_works.html' %}
+
+    {% include 'kind_works&service/includes/kind_wokr_comments.html' %}
+
+
+{% endblock %}

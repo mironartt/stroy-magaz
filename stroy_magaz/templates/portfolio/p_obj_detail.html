@@ -1,0 +1,98 @@
+<style>
+    .border {
+        list-style: none;
+        padding: 0;
+    }
+    .border li {
+        font-family: "Trebuchet MS", "Lucida Sans";
+        padding: 7px 20px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border-left: 10px solid #f05d22;
+        box-shadow: 2px -2px 5px 0 rgba(0,0,0,.1),
+        -2px -2px 5px 0 rgba(0,0,0,.1),
+        2px 2px 5px 0 rgba(0,0,0,.1),
+        -2px 2px 5px 0 rgba(0,0,0,.1);
+        font-size: 20px;
+        letter-spacing: 2px;
+        transition: 0.3s all linear;
+    }
+    .border li:nth-child(2){border-color: #8bc63e;}
+    .border li:nth-child(3){border-color: #fcba30;}
+    .border li:nth-child(4){border-color: #1ccfc9;}
+    .border li:nth-child(5){border-color: #493224;}
+    .border li:hover {border-left: 10px solid transparent;}
+    .border li:nth-child(1):hover {border-right: 10px solid #f05d22;}
+    .border li:nth-child(2):hover {border-right: 10px solid #8bc63e;}
+    .border li:nth-child(3):hover {border-right: 10px solid #fcba30;}
+    .border li:nth-child(4):hover {border-right: 10px solid #1ccfc9;}
+    .border li:nth-child(5):hover {border-right: 10px solid #493224;}
+</style>
+{% extends 'base.html' %}
+{% load static %}
+
+
+{%  block title %}
+
+    Портфолио: {{ p_obj.name  }}
+
+{% endblock %}
+
+
+
+{% block content %}
+
+    <div class="page-hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="page-title">{{ p_obj.name }}</h2>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <main class="main">
+        <div class="container">
+            <p class="page-subtitle">
+                <div class="entry-meta">
+                    <p class="entry-meta-item entry-categories"><a href="{% url 'home_url' %}">Главная</a></p>
+                    <p class="entry-meta-item entry-comments-link"><a href="{% url 'portfolio:list_all_portfolio' %}">Портфолио</a></p>
+                    <p class="entry-meta-item entry-comments-link"><a href="{{ topic.get_absolute_url }}">{{ p_obj.topic }}</a></p>
+                    <p class="entry-meta-item entry-comments-link">{{ p_obj.name }}</p>
+                </div>
+            </p>
+            <div class="row">
+                <div class="col-xl-9 col-lg-8 col-xs-12">
+                    <article class="entry">
+                        {% if p_obj.description %}
+                            {{ p_obj.description|safe }}
+                        {% else %}
+                            <h4>Описание данной статьи еще не готово.</h4>
+                            Для получение подробностей свяжитесь с нами.
+                        {% endif %}
+
+                        <br><br>
+                        {% include 'portfolio/includes/gallery_p_obj.html' %}
+
+                    </article>
+                </div>
+
+                {% include 'portfolio/includes/right_column.html' %}
+
+
+
+            </div>
+
+
+
+
+        </div>
+    </main>
+    {% include 'portfolio/includes/portfolio_comments.html' %}
+{#    {% include 'portfolio/includes/gallery_p_obj.html' %}#}
+
+
+{% endblock %}

@@ -1,0 +1,137 @@
+{% load static %}
+<div class="col-xl-8 col-lg-8 col-xs-12">
+    {{ contacts.text_about_us_page_2 }}
+
+
+<div class="col-xl-4 col-lg-4 col-xs-12">
+
+    {% if contacts.address or contacts.phone or contacts.email %}
+        <div class="module">
+            <p class="module-title">Наши контакты</p>
+
+            <ul class="module-contact-info">
+                {% if contacts.address %}
+                    <li> <i class="fa fa-map-marker"></i>
+                        <span>
+                        {{ contacts.address }}
+                        </span>
+                    </li>
+                {% endif %}
+                {% if contacts.phone %}
+                    <li> <i class="fa fa-phone"></i> <span><a href="{{ contacts.phone }}">{{ contacts.phone}}</a></span> </li>
+                {% endif %}
+                {% if contacts.email %}
+                    <li> <i class="fa fa-envelope"></i> <span><a href="{{ contacts.email }}">{{ contacts.email }}</a></span> </li>
+                {% endif %}
+            </ul>
+        </div>
+    {% else %}
+         <div align="center">
+            <figure class="entry-thumb">
+                <span align="center"><img align="center" src="{% static 'images/non-page.png' %}" alt=""> </span>
+            </figure>
+        </div>
+    {% endif %}
+    {% if contacts.time_work %}
+        <aside class="widget">
+            <h3 class="widget-title">Режим работы</h3>
+            <p>Вы всегда моете оставить заявку или заказать обратный звонок в удобное для вас время на нашем сайте или </p>
+            {% if contacts.time_work %}
+                <p><h4>{{ contacts.time_work }}</h4></p>
+            {% endif %}
+        </aside>
+
+    {% else %}
+         <div align="center">
+            <figure class="entry-thumb">
+                <span align="center"><img align="center" src="{% static 'images/non-page.png' %}" alt=""> </span>
+            </figure>
+        </div>
+    {% endif %}
+
+</div>
+<!-- Simple Callout module -->
+<div class="col-xl-8 col-lg-8 col-xs-12">
+
+    {% if contacts.full_company_name or contacts.fio_entrepreneur or contacts.ip_registration_address or contacts.inn_kpp or contacts.bin or contacts.okved or contacts.okpo or contacts.requisites or contacts.self_phone or contacts.self_email %}
+
+        <aside class="widget">
+            <h3 class="widget-title">Реквизиты</h3>
+{#            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, ducimus.</p>#}
+            <table class="table table-opening-hours">
+                <tbody>
+                    {% if contacts.full_company_name %}
+                        <tr>
+                            <th>Полное наименование компании</th>
+                            <td>{{ contacts.full_company_name }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if contacts.fio_entrepreneur %}
+                        <tr>
+                            <th>ФИО предпринимателя</th>
+                            <td>{{ contacts.fio_entrepreneur }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if contacts.ip_registration_address %}
+                        <tr>
+                            <th>Адрес регистрации ИП</th>
+                            <td>{{ contacts.ip_registration_address }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if contacts.inn_kpp %}
+                        <tr>
+                            <th>ИНН</th>
+                            <td>{{ contacts.inn_kpp }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if contacts.bin %}
+                        <tr>
+                            <th>ОГРНИП</th>
+                            <td>{{ contacts.bin }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if contacts.okved %}
+                        <tr>
+                            <th>ОКВЭД</th>
+                            <td>{{ contacts.okved }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if contacts.okpo %}
+                        <tr>
+                            <th>ОКПО</th>
+                            <td>{{ contacts.okpo }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if contacts.requisites %}
+                        <tr>
+                            <th>Банковские реквизиты</th>
+                            <td>{{ contacts.requisites }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if contacts.self_phone %}
+                        <tr>
+                            <th>Контактный телефон</th>
+                            <td>{{ contacts.self_phone }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if contacts.self_email %}
+                        <tr>
+                            <th>Электронная почта</th>
+                            <td>{{ contacts.self_email }}</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </aside>
+
+    {% else %}
+         <div align="center">
+            <figure class="entry-thumb">
+                <span align="center"><img align="center" src="{% static 'images/non-page.png' %}" alt=""> </span>
+            </figure>
+        </div>
+    {% endif %}
+
+</div>
+
+</div>

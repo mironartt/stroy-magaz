@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+
+{%  block title %}
+
+
+    {% if site_settings.site_name %}
+        Оформление заказа |{{ site_settings.site_name  }}|
+    {% else %}
+        Оформление заказа
+    {% endif %}
+
+{% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+
+
+{% include 'order/includes/header.html' %}
+<main class="main">
+    <div class="container">
+
+        <p class="page-subtitle">
+            <div class="entry-meta">
+                <p class="entry-meta-item entry-categories"><a href="{% url 'home_url' %}">Главная</a></p>
+                <p class="entry-meta-item entry-comments-link">Оформление заказа</p>
+            </div>
+        </p>
+
+                <div class="col-xl-12 col-lg-8 col-xs-12">
+                    <article class="entry">
+                        <div id="comments">
+                            <section>
+                                <div id="form-wrapper" class="group">
+                                    <div id="respond" class="comment-respond">
+                                        <h3>Форма составления заказа</h3>
+
+                                        <form action="{% url 'create_order_url' %}"  method="POST" enctype="multipart/form-data" id="commentform" class="comment-form" novalidate="">
+
+
+                                            <p class="comment-notes">Обязательные для заполнения поля<span class="required">*</span> </p>
+                                                <div class="col-xl-12 col-lg-12 col-xs-12">
+                                                    <h3 style="color: #702000">{{ order_create_form.name_client.errors }}</h3>
+                                                    <b>{{ order_create_form.name_client.label }}</b>
+                                                    {{ order_create_form.name_client }}
+                                                </div>
+
+                                                <div class="col-xl-6 col-lg-4 col-xs-4">
+                                                    <h3 style="color: #702000">{{ order_create_form.phone_client.errors }}</h3>
+                                                    <b>{{ order_create_form.phone_client.label }}</b>
+                                                    {{ order_create_form.phone_client }}
+                                                </div>
+                                                <div class="col-xl-6 col-lg-4 col-xs-4">
+                                                    <h3 style="color: #702000">{{ order_create_form.email_client.errors }}</h3>
+                                                    <b>{{ order_create_form.email_client.label }}</b>
+                                                    {{ order_create_form.email_client }}
+                                                </div>
+                                                <div class="col-xl-6 col-lg-4 col-xs-4">
+                                                    <h3 style="color: #702000">{{ order_create_form.subject_work.errors }}</h3>
+                                                    <b>{{ order_create_form.subject_work.label }}</b>
+                                                    {{ order_create_form.subject_work }}
+                                                </div>
+                                                {% if site_settings.avalible_load_files_order %}
+                                                    <div class="col-xl-6 col-lg-4 col-xs-4">
+                                                        <h3 style="color: #702000">{{ order_create_form.file.errors }}</h3>
+                                                        <b>{{ order_create_form.file.label }}</b>
+                                                        {{ order_create_form.file }}{{ order_create_form.file.help_text }}
+                                                    </div>
+                                                {% endif %}
+                                                <div class="col-xl-12 col-lg-12 col-xs-12">
+                                                    <h3 style="color: #702000">{{ order_create_form.description_client.errors }}</h3>
+                                                    <b>{{ order_create_form.description_client.label }}</b>
+                                                    {{ order_create_form.description_client }}
+                                                </div>
+{#                                            {{ order_create_form.as_p }}#}
+
+                                                <div class="col-xl-6 col-lg-4 col-xs-4">
+                                                    {% csrf_token %}
+                                                    <p class="form-allowed-tags"> Наши специалисты свяжутся с вами, ожидайте звонка </p>
+                                                    <p class="form-submit"> <input name="submit" type="submit" id="submit" value="{% if сoll_back.btn_name %}{{ сoll_back.btn_name }}{% else %}Заказать{% endif %}"> </p>
+                                                </div>
+
+                                        </form>
+                                    </div>
+                                    <!-- #respond -->
+                                </div>
+                                <!-- #form-wrapper -->
+                            </section>
+
+                        </div>
+                    </article>
+                </div>
+
+        </div>
+    </div>
+</main>
+
+{% endblock %}

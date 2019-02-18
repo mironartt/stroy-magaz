@@ -1,0 +1,37 @@
+// Grid
+$enable-flex:         false !default;
+$enable-grid-classes: true !default;
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 544px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+) !default;
+
+$container-max-widths: (
+  sm: 576px,
+  md: 720px,
+  lg: 940px,
+  xl: 1170px
+) !default;
+
+$grid-columns:      12 !default;
+$grid-gutter-width: 30px !default;
+
+
+// Colors
+$body-bg:           #FFFFFF !default;
+$primary-color:     #FFCC00 !default;
+$secondary-color:   #362F2D !default;
+$text-color:        $secondary-color !default;
+$text-on-primary:   $text-color !default;
+$text-on-secondary: #FFFFFF !default;
+$nav-color:         #A3A3A3 !default;
+$border-color:      #EBEAEA  !default;
+$border-on-secondary: #524c4a !default;
+
+// Fonts
+$primary-font:   'Open Sans', sans-serif;
+$secondary-font: 'Montserrat', sans-serif;

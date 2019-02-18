@@ -1,0 +1,54 @@
+<div class="col-xl-9 col-lg-8 col-xs-12">
+    <div class="row row-equal row-items">
+        {% if documents %}
+            {% for doc in documents %}
+
+                <div class="col-md-3 col-xs-12">
+                    <div class="item item-left">
+                        <figure class="item-thumb">
+        {#                    <a href=""><img src="http://placehold.it/555x350/FFCC00.png" alt=""></a>#}
+                        </figure>
+                        <div class="item-content">
+                            <ul class="link-list">
+                                <li class="link-list-item">
+                                    <a href="{{ doc.file.url }}">
+                                        <span class="link-list-icon"><i class="fa fa-file-pdf-o"></i></span>
+                                        <span class="link-list-content">
+                                            <strong>Скачать</strong>
+                                            {{ doc.title }}
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9 col-xs-12">
+                    <div class="item item-left">
+                        <figure class="item-thumb">
+        {#                    <a href=""><img src="http://placehold.it/555x350/FFCC00.png" alt=""></a>#}
+                        </figure>
+                        <div class="item-content">
+                            <p class="item-title">{{ doc.title }}</p>
+                            <p>
+                                {% if doc.description %}
+                                    {{ doc.description }}
+    {#                            {% else %}#}
+    {#                                {{ doc.title }}#}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <hr><br>
+            {% endfor %}
+        {% else %}
+            <div class="item-content">
+                <p class="item-title">Раздел находится в разработке</p>
+                <p>Для получения подробностей свяжитесь с нами через <a href="{% url 'coll_bacl_form_url' %}">форму обратной связи</a> или <a href="{% url 'contacts_url' %}">другими доступыми методами</a></p>
+            </div>
+        {% endif %}
+
+    </div>
+</div>

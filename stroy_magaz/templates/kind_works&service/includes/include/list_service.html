@@ -1,0 +1,10 @@
+{% if service_kind_works is not None %}
+<h3 class="widget-title">Тип работ</h3>
+<ol class="border">
+
+    {% for service in service_kind_works %}
+        <li style=""><a href="{{ service.get_absolute_url }}"><span style="color: orangered">{{ service.name }}</span></a></li>
+    {% endfor %}
+
+</ol>
+{% endif %}

@@ -1,0 +1,10 @@
+{% if topics %}
+    <h3 class="widget-title"><a href="{% url 'portfolio:list_all_portfolio' %}">Катеории портфолио</a></h3>
+    <ol class="border">
+
+        {% for obj in topics %}
+            <li style=""><a href="{{ obj.get_absolute_url }}"><span style="color: orangered">{{ obj.name }}</span></a></li>
+        {% endfor %}
+
+    </ol>
+{% endif %}

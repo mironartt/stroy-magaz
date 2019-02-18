@@ -1,0 +1,90 @@
+// Style placeholders
+@mixin placeholder {
+	::-webkit-input-placeholder {
+		@content
+	}
+	:-moz-placeholder {
+		@content
+	}
+	::-moz-placeholder {
+		@content
+	}
+	:-ms-input-placeholder {
+		@content
+	}
+}
+
+@mixin placeholder-at {
+	&::-webkit-input-placeholder {
+		@content
+	}
+	&:-moz-placeholder {
+		@content
+	}
+	&::-moz-placeholder {
+		@content
+	}
+	&:-ms-input-placeholder {
+		@content
+	}
+}
+
+// Ensuring text doesn't overflow its container and breaks nicely
+@mixin truncate-text($overflow: ellipsis) {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: $overflow; // clip, ellipsis, or a string
+}
+
+// Loading spinner
+@keyframes rot {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(359deg);
+	}
+}
+
+@mixin spinner($color: #FFF, $opacity: .35, $size: 40px) {
+	border: 6px solid rgba($color, $opacity);
+	border-top-color: rgba($color, $opacity*2.5);
+	border-radius: 100%;
+	height: $size;
+	width: $size;
+	animation: rot .8s infinite linear;
+}
+
+// Theme Specific Mixins
+@mixin font-style($fz: 13px) {
+	text-transform: uppercase;
+	font-size: $fz;
+	line-height: normal;
+	font-weight: 400;
+}
+
+@mixin select-style {
+	display: block;
+	width: 100%;
+	padding: 6px 15px;
+	border-radius: 0;
+	font-size: 14px;
+	height: 40px;
+	font-weight: normal;
+	border: 1px solid $border-color;
+	background: #FFF;
+}
+
+// Bottom Border
+@mixin border-bottom {
+	position: relative;
+
+	&::after {
+		content: '';
+		display: block;
+		width: 30px;
+		height: 3px;
+		margin-top: 10px;
+		background-color: $primary-color;
+	}
+}

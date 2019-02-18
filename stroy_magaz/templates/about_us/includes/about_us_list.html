@@ -1,0 +1,27 @@
+{% load static %}
+
+
+<div class="col-xl-9 col-lg-8 col-xs-12">
+    {% if aboutus.text_about_us_page %}
+        <div class="faq-section">
+            {% if aboutus.smal_company_name %}
+                <h2 class="item-title">Наша компания {{ aboutus.smal_company_name }}</h2>
+            {% endif %}
+            {{ aboutus.text_about_us_page|safe }}
+
+        </div>
+    {% else %}
+        <div class="col-xl-12 col-md-12 col-xs-12">
+
+            <div align="center">
+                <figure class="entry-thumb">
+                    <span align="center"><img align="center" src="{% static 'images/non-page.png' %}" alt=""> </span>
+                </figure>
+            </div>
+
+        </div>
+
+    {% endif %}
+</div>
+
+

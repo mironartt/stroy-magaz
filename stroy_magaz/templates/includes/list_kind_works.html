@@ -1,0 +1,64 @@
+{% load static %}
+<main class="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                {% if kindworks %}
+                    <div class="row row-equal row-items">
+
+                        {% for kindwork in kindworks %}
+                            {% if forloop.counter <= 6 %}
+                                <div class="col-lg-4 col-md-6 col-xs-12">
+                                    <div class="item item-left">
+                                        <figure class="item-thumb">
+                                            <div style="position: relative">
+                                                <a href="{{ kindwork.get_absolute_url }}">
+                                                    <div class="imagetext">
+                                                        {% if kindwork.main_image %}<img src="{{ kindwork.main_image.url }}" style="height: 300px; width: 450px" class="example_beauty" />{% else %}<img src="{% static 'images/not-image.jpg' %}" style="height: 300px; width: 450px" class="example_beauty" />{% endif %}
+
+
+                                                    <div class="for_text">
+                                                        <div align="center">
+                                                            <div class="btn btn-lg">
+                                                             {{ kindwork.name }}<i class="fa fa-caret-right"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </figure>
+
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-5 offset-lg-4 col-md-8 offset-md-2 ">
+                            <div class="item-pricing item-pricing-featured">
+                                <div align="center">
+                                    <a href="{% url 'service:kind_works_list_url' %}" class="btn btn-lg">Просмототреть все<i class="fa fa-caret-right"></i></a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                {% else %}
+                    <div class="col-xl-12 col-md-12 col-xs-12">
+
+                        <div align="center">
+                            <figure class="entry-thumb">
+                                <span align="center"><img align="center" src="{% static 'images/non-page.png' %}" alt=""> </span>
+                            </figure>
+                        </div>
+
+                    </div>
+
+                {% endif %}
+                {#							<div class="paging"> <span>Page 3 of 4</span> <a href="">1</a> <a href="">2</a> <span class="current">3</span> <a href="">4</a> </div>#}
+            </div>
+        </div>
+    </div>
+</main>

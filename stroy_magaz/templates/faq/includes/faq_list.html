@@ -1,0 +1,16 @@
+
+<div class="col-xl-9 col-lg-8 col-xs-12">
+    <div class="faq-section">
+        <h2 class="item-title">Вопрос - ответ</h2>
+
+        {% for faq in faq %}
+            <div class="faq-wrap"> <a href="#" class="faq-title">{{ faq.question }}</a>
+                <div class="faq-content entry-content">
+                    <p>{{ faq.answer|safe }}</p>
+
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+</div>

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{%  block title %}
+
+    {% if site_settings.site_name %}
+        FAQ |{{ site_settings.site_name  }}|
+    {% else %}
+        FAQ
+    {% endif %}
+{% endblock %}
+{% block content %}
+
+<div class="page-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="page-title">Часто задаваемые вопросы</h2>
+{#							<p class="page-subtitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, veniam.</p>#}
+            </div>
+        </div>
+    </div>
+</div>
+<main class="main">
+    <div class="container">
+
+        <p class="page-subtitle">
+            <div class="entry-meta">
+                <p class="entry-meta-item entry-categories"><a href="{% url 'home_url' %}">Главная</a></p>
+                <p class="entry-meta-item entry-comments-link">FAQ</p>
+            </div>
+        </p>
+        <div class="row">
+
+        {% include 'faq/includes/faq_list.html' %}
+
+
+        {% include 'faq/includes/right_column.html' %}
+        </div>
+    </div>
+</main>
+
+
+{% endblock %}

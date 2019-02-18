@@ -1,0 +1,114 @@
+<style>
+
+.catside a:hover {background: rgba(250, 255, 0, 0.45); color: #fff;}
+</style>
+
+<header class="header">
+    <div class="pre-head">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-5 col-xs-12">
+                    {% if about_us.address %}
+                        <span class="head-text-icon">
+                            <i class="fa fa-map-marker"></i> {{ about_us.address }}
+                        </span>
+                    {% endif %}
+                    {% if about_us.phone %}
+                    <span class="head-text-icon">
+                        <i class="fa fa-phone"></i> <a href="tel:{{ about_us.phone }}">{{ about_us.phone }}</a>
+                    </span>
+                    {% endif %}
+                    {% if about_us.email %}
+                    <span class="head-text-icon">
+                        <i class="fa fa-envelope"></i> <a href="mailto:technico@technico.com">{{ about_us.email }}</a>
+                    </span>
+                    {% endif %}
+                </div>
+                <div class="col-sm-4 col-xs-12">
+
+                    <span class="head-text">
+{#                        <i class="fa fa-envelope"></i> <a href="mailto:technico@technico.com">{{ about_us.email }}</a>#}
+                        {% include 'components/serch_forms.html' %}
+                    </span>
+                </div>
+                <div class="col-sm-3 col-xs-12">
+{#                    <ul class="social-icons">#}
+{#                        <li><a href="#" class="social-icon"><i class="fa fa-facebook"></i></a></li>#}
+{#                        <li><a href="#" class="social-icon"><i class="fa fa-twitter"></i></a></li>#}
+{#                        <li><a href="#" class="social-icon"><i class="fa fa-linkedin"></i></a></li>#}
+{#                        <li><a href="#" class="social-icon"><i class="fa fa-google-plus"></i></a></li>#}
+{#                    </ul>#}
+
+                    {% include 'components/social.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mast-head" >
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="mast-head-wrap">
+                        <div class="col-xs-3">
+                            <div class="mast-head-left">
+                                <h1 class="site-logo">
+                                    <a href="{% url 'home_url' %}">{% if about_us.smal_company_name %}{{ about_us.smal_company_name }}{% else %} Наша компания {% endif %}</a>
+                                </h1>
+                                <p class="site-tagline">{% if about_us.discription_name %}{{ about_us.discription_name }}{% endif %}</p>
+                            </div>
+                        </div>
+                    <div class="col-xs-9">
+{#                        <div class="mast-head-right">#}
+                            <nav class="nav">
+                                <ul class="navigation">
+                                    <li class="current-menu-item"><a href="{% url 'home_url' %}">Главная</a>
+                                        <ul>
+                                            <br>
+
+
+                                            <li class="catside"><a href="{% url 'order_create_form_url' %}">Оформить заказ</a></li>
+                                            <li class="catside"><a href="{% url 'coll_bacl_form_url' %}">Заказать звонок</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="{% url 'service:kind_works_list_url' %}">Услуги</a>
+                                        <ul>
+
+<br>
+                                            {% for kind_work in kindworks %}
+
+                                                <li class="catside"><a href="{{ kind_work.get_absolute_url }}">{{ kind_work.name }}</a></li>
+
+                                            {% endfor %}
+                                            <li class="catside"><a href="{% url 'service:kind_works_list_url' %}">смотреть все</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="{% url 'portfolio:list_all_portfolio' %}">Портфолио</a></li>
+                                    <li><a href="{% url 'documentations_url' %}">Документация</a>
+
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'about_us_url' %}">О компании</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'contacts_url' %}">Контакты</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'faq:list_faq_url' %}">FAQ</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'main_comments_url' %}">Отзывы</a>
+                                    </li>
+                                </ul>
+
+                                <!-- #navigation -->
+                            </nav>
+                            <!-- #nav -->
+                            <div id="mobilemenu"></div> <a href="#mobilemenu" title="Open Mobile Menu" class="mobile-menu-trigger"><i class="fa fa-navicon"></i></a> </div>
+{#                        </div>#}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

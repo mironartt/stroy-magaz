@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{%  block title %}
+
+        Поиск по сайту: "{{ query_request }}"
+
+{% endblock %}
+
+
+{% block content %}
+
+
+
+    <div class="page-hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="page-title">Поиск по сайту:</h2>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <main class="main">
+        <div class="container">
+            <p class="page-subtitle">
+                <div class="entry-meta">
+                    <p class="entry-meta-item entry-categories"><a href="{% url 'home_url' %}">Главная</a></p>
+                    <p class="entry-meta-item entry-comments-link">Поиск по сайту</p>
+                </div>
+            </p>
+            <div class="row">
+                <div class="col-xl-9 col-lg-8 col-xs-12">
+                    <article class="entry">
+                        <h1 class="page-title">{{ query_set_count }} совпадений по запросу:
+                            <p style="margin-left: 40px"><em>"{{ query_request }}"</em></p>
+                        </h1><br><br><br>
+                        {% if query_sets %}
+                            {% for i in query_sets %}
+                                {% for j in i %}
+                                    <div class="col-xl-12 col-lg-8 col-xs-12">
+                                        <p class="item-title">
+                                            <a href="{{ j.get_absolute_url }}">
+
+                                                {% if j.name %}
+                                                    {{ j.name }}
+                                                {% elif j.title %}
+                                                    {{ j.title }}
+                                                {% elif j.question %}
+                                                    {{ j.question }}
+                                                {% elif j.text_about_us_page %}
+                                                    <h1 class="item-title">{{ j.text_about_us_page|safe|truncatewords:3}}</h1>
+                                                {% elif j.text_about_us_page_2 %}
+                                                    <h1 class="item-title">{{ j.text_about_us_page_2|safe|truncatewords:3}}</h1>
+                                                {% endif %}
+                                            </a>
+                                        </p>
+                                        <span style="font-size: 12px"> путь: {{ j.get_absolute_url }}<em><br><br>
+                                        <span style="margin-left: 30px">
+
+                                                {% if j.desctiption %}
+                                                    <span style="font-size: 16px"><em>{{ j.desctiption|safe|truncatewords:30 }}</em></span>
+                                                {% elif j.desctiptions %}
+                                                    <span style="font-size: 16px"><em>{{ j.desctiptions|safe|truncatewords:30 }}</em></span>
+                                                {% elif j.answer %}
+                                                    <span style="font-size: 16px"><em>{{ j.answer|safe|truncatewords:30 }}</em></span>
+                                                {% elif j.text_about_us_page %}
+                                                    <span style="font-size: 16px"><em><h1 class="item-title">{{ j.text_about_us_page|safe|truncatewords:30}}</h1></em></span>
+                                                {% elif j.text_about_us_page_2 %}
+                                                    <span style="font-size: 16px"><em><h1 class="item-title">{{ j.text_about_us_page_2|safe|truncatewords:30}}</h1></em></span>
+                                                {% else %}
+                                                    <span style="font-size: 16px"><em>Описание отсутствует</em></span>
+                                                {% endif %}
+
+                                        </span>
+
+
+{#                                    <a href="{{ j.get_absolute_url }}" target="_blank">{{ j }}--------</a><br>#}
+                                        <br><div align="right" class="reply" style="margin-right: 100px"> <a class="comment-reply-link" href="{{ j.get_absolute_url }}">Подробнее</a> </div>
+                                        <br><br><hr><br><br>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+
+                        {% else %}
+                            <h2>К сожалению результатов не найдено</h2>
+                            Попробуйте изменить запрос и поискать снова. Поиск чувствителен к регистру.
+                        {% endif %}
+
+                        <br><br>
+{#                        {% include 'portfolio/includes/gallery_p_obj.html' %}#}
+
+                    </article>
+                </div>
+
+                {% include 'search/includes/right_column.html' %}
+
+
+
+            </div>
+
+
+
+
+        </div>
+    </main>
+{#    {% include 'portfolio/includes/portfolio_comments.html' %}#}
+{#    {% include 'portfolio/includes/gallery_p_obj.html' %}#}
+
+
+
+{% endblock %}
+

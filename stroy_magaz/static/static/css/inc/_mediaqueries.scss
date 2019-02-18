@@ -1,0 +1,187 @@
+/* -----------------------------------------
+	11. Global Mediaqueries
+----------------------------------------- */
+// xs: mobiles
+// sm: small tablets / phablets
+// md: tablets
+// lg: tablets / small laptops
+// xl: desktop
+
+@include media-breakpoint-up(xs) { }
+@include media-breakpoint-up(sm) { }
+@include media-breakpoint-up(md) { }
+@include media-breakpoint-up(lg) { }
+@include media-breakpoint-up(xl) { }
+
+@include media-breakpoint-down(xl) { }
+@include media-breakpoint-down(lg) { }
+@include media-breakpoint-down(md) {
+	.nav {
+		display: none;
+	}
+
+	.mobile-menu-trigger {
+		display: inline-block;
+	}
+
+	.main-slider {
+		height: 560px;
+	}
+
+	.section-title-wrap {
+		margin-bottom: 40px;
+	}
+
+	.table-pricing {
+		margin-top: 0;
+		margin-bottom: -30px;
+	}
+
+	.item-pricing-featured {
+		margin-top: 0;
+		padding: 23px 15px;
+	}
+
+	.client-list {
+		img {
+			max-height: 45px;
+		}
+	}
+
+	.back-top {
+		display: none;
+	}
+
+	.widget-padded {
+		.widget-wrap {
+			&.wrap-extra-pad {
+				padding: 120px 0;
+			}
+		}
+	}
+
+	.sidebar {
+		margin-top: 60px;
+	}
+}
+
+@include media-breakpoint-down(sm) {
+	.mast-head-left {
+		width: 60%;
+	}
+
+	.site-logo {
+		img {
+			max-width: 200px;
+		}
+	}
+
+	.main-slider {
+		height: 460px;
+	}
+
+	.footer-copy {
+		text-align: center;
+
+		.text-right {
+			text-align: center;
+		}
+	}
+}
+
+@include media-breakpoint-down(xs) {
+	h1 { font-size: 24px; }
+	h2 { font-size: 20px; }
+	h3 { font-size: 18px; }
+	h4 { font-size: 16px; }
+	h5 { font-size: 14px; }
+	h6 { font-size: 12px; }
+
+	.pre-head {
+		text-align: center;
+
+		.social-icons {
+			display: none;
+		}
+	}
+
+	.head-text-icon {
+		display: block;
+		margin: 0 0 5px;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	.mast-head-wrap {
+		padding: 20px 0;
+	}
+
+	.mast-head-left {
+		width: 85%;
+	}
+
+	.main {
+		padding: 60px 0;
+	}
+
+	.main-home {
+		padding: 0;
+	}
+
+	.page-hero {
+		padding: 30px 0;
+	}
+
+	.page-title {
+		line-height: 1.1;
+		font-size: 30px;
+	}
+
+	.page-subtitle {
+		margin-top: 5px;
+	}
+	
+	.entry-title {
+		font-size: 24px;
+	}
+
+	.entry-meta {
+		font-size: 10px;
+	}
+
+	.widget {
+		margin-bottom: 40px;
+	}
+
+	.main-slider {
+		height: 420px;
+	}
+
+	.hero-title {
+		font-size: 30px;
+	}
+	
+	.section-title {
+		font-size: 26px;
+	}
+
+	.widget-padded {
+		.widget-wrap {
+			&.wrap-extra-pad {
+				padding: 80px 0;
+			}
+		}
+	}
+
+	.section-title-wrap {
+		margin-bottom: 30px;
+	}
+
+	.client-list {
+		img {
+			max-height: 35px;
+		}
+	}
+}

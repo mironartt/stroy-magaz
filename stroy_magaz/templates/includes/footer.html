@@ -1,0 +1,140 @@
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="footer-main">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12">
+                            <aside class="widget">
+                                <h3 class="widget-title">Время работы</h3>
+                                {% if about_us.time_work %}
+                                    <a href="{% url 'contacts_url' %}">
+                                        <p>{{ about_us.time_work }}</p>
+                                    </a><br><br>
+                                {% else %}
+                                    <p>Раздел в разработке</p>
+                                {% endif %}
+
+
+                                <ul class="module-contact-info">
+                                    <li class="module-contact-info-title">
+                                        <h3 class="widget-title">
+                                            <a href="{% url 'contacts_url' %}">Контакты</a>
+                                        </h3>
+                                    </li>
+                                    {% if about_us.address or about_us.phone or about_us.email %}
+                                        {% if about_us.time_work %}
+                                            <li>
+                                                <i class="fa fa-map-marker"></i>
+                                                <span>
+                                                    {{ about_us.address }}
+                                                </span>
+                                            </li>
+                                        {% endif %}
+                                        {% if about_us.phone %}
+                                            <li> <i class="fa fa-phone"></i> <span><a href="{{ about_us.phone }}">{{ about_us.phone }}</a></span> </li>
+                                        {% endif %}
+                                        {% if about_us.email %}
+                                        <li> <i class="fa fa-envelope"></i> <span><a href="mailto:technico@technico.com">{{ about_us.email }}</a></span> </li>
+                                        {% endif %}
+                                    {% else %}
+                                        <p>Раздел в разработке</p>
+                                    {% endif %}
+                                </ul>
+                                <br>
+{#                                <form action="/" class="form-newsletter form-inset">#}
+{#                                    <div class="form-inset-group"> <label for="ci_email_124" class="sr-only">Your email</label> <input type="email" name="ci_email_124" id="ci_email_124" placeholder="Your email address"> <button type="submit">Subscribe</button> </div>#}
+{#                                </form>#}
+                                {% include 'components/serch_forms.html' %}
+                            </aside>
+                        </div>
+                        <div class="col-lg-3 col-xs-12">
+                            <aside class="widget">
+                                <h3 class="widget-title">Документация</h3>
+                                {% if documentations %}
+                                    {% for doc in documentations %}
+                                        <ul class="link-list">
+                                            <li class="link-list-item">
+                                                <a href="{{ doc.file.url }}"> <span class="link-list-icon"><i class="fa fa-file-pdf-o"></i></span> <span class="link-list-content">
+                                                    <strong>{{ doc.title }}</strong>
+                                                    Скачать
+                                                </span> </a>
+                                            </li>
+
+                                        </ul>
+                                    {% endfor %}
+                                {% else %}
+                                        <li class="link-list-item">
+                                            <strong>Раздел в разработке</strong>
+                                        </li>
+                                {% endif %}
+                            </aside>
+                        </div>
+
+
+
+
+
+
+                        <div class="col-lg-3 col-xs-12">
+                            <aside class="widget widget_text group">
+                                {% if about_us.full_company_name %}
+                                    <h3 class="widget-title">{{ about_us.full_company_name }}</h3>
+                                {% else %}
+                                    <h3 class="widget-title">Название компании</h3>
+                                {% endif %}
+                                {% if about_us.discription_name %}
+                                    <p>{{ about_us.discription_name }}</p>
+                                {% endif %}
+
+
+                                <p class="widget-title"><a href="{% url 'home_url' %}">Главная</a></p>
+                                <p class="widget-title"><a href="{% url 'service:kind_works_list_url' %}">Услуги</a>
+                                </p>
+                                <p class="widget-title"><a href="{% url 'portfolio:list_all_portfolio' %}">Портфолио</a></p>
+                                <p class="widget-title"><a href="{% url 'documentations_url' %}">Документация</a>
+
+                                </p>
+                                <p class="widget-title">
+                                    <a href="{% url 'about_us_url' %}">О компании</a>
+                                </p>
+                                <p class="widget-title">
+                                    <a href="{% url 'contacts_url' %}">Контакты</a>
+                                </p>
+                                <p class="widget-title">
+                                    <a href="{% url 'faq:list_faq_url' %}">FAQ</a>
+                                </p>
+                                <p class="widget-title">
+                                    <a href="{% url 'main_comments_url' %}">Отзывы</a>
+                                </p>
+
+
+                            </aside>
+                            <!-- /widget -->
+                        </div>
+                        <div class="col-lg-3 col-xs-12">
+                            <aside class="widget">
+                                <h3 class="widget-tilte">Заказать расчет работ</h3>
+                                {% if about_us.notes %}
+                                    {{ about_us.notes }}
+                                {% endif %}
+                                {% include 'components/order_create_form.html' %}
+
+                            </aside>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-copy">
+                    <div class="row">
+                        <div class="col-md-6 col-xs-12">
+                            <p><a href="">Technico</a> &ndash; Business Template</p>
+                        </div>
+                        <div class="col-md-6 col-xs-12 text-right">
+                            <p>Handcrafted by <a href="http://www.cssigniter.com">CSSIgniter</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

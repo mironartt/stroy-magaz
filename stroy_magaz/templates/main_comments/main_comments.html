@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{%  block title %}
+
+    {% if site_settings.site_name %}
+        Отзывы |{{ site_settings.site_name  }}|
+    {% else %}
+        Отзывы
+    {% endif %}
+
+{% endblock %}
+{% block content %}
+
+
+<div class="page-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="page-title">Озывы</h1>
+                <p class="page-subtitle">Отзывы наших клиентов о нас и нашей работе</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+<main class="main">
+    <div class="container">
+
+        <p class="page-subtitle">
+            <div class="entry-meta">
+                <p class="entry-meta-item entry-categories"><a href="{% url 'home_url' %}">Главная</a></p>
+                <p class="entry-meta-item entry-comments-link">Отызывы</p>
+            </div>
+        </p>
+
+        <div class="row">
+
+                <article class="entry">
+                    <div id="comments">
+
+
+
+                        <div class="post-comments">
+
+                            <div class="col-xl-6 col-lg-6 col-xs-12">
+
+                                <h3 class="page-title">
+                                    {{ comments|length }} Отзыва(ов)
+                                    <span style="margin-left: 80px" class="hero-content-text">Средняя оценка: <span class="hero-title">{{ average_mark|floatformat:1 }}</span> из 10</span>
+                                </h3><br><br>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-xs-12" align="right">
+                                <a href="#form-wrapper" class="btn btn-lg">Оставить свой отзыв<i class="fa fa-caret-right"></i></a>
+
+                            </div>
+                            {% if comments %}
+                                <div class="col-xl-12 col-lg-12 col-xs-12">
+                                <ol id="comment-list">
+                                    <li class="comment bypostauthor">
+                                        <br><br>
+                                        {% for comment in comments  %}
+                                            {% if comment.moderation or site_settings.confirm_main_comments %}
+                                                <article class="comment-body">
+                                                    <footer class="comment-meta">
+                                                        <div class="comment-metadata">
+                                                            <time datetime="{{ comment.created}}">
+                                                                {{ comment.created|date:"d-m-Y" }}
+                                                            </time>
+                                                            <span><h5 class="item-title" style="margin-top: 5px">{{ comment.name_person }}</h5></span>
+                                                            <span style="margin-left: 0px" class="comment-reply-link">{{ comment.kind_job }}</span>
+                                                            <span class="comment-reply-link">Оценка: {{ comment.job_satisfaction }}</span>
+
+                                                        </div>
+                                                        <!-- .comment-metadata -->
+                                                    </footer>
+                                                    <!-- .comment-meta -->
+                                                    <div class="comment-content">
+                                                        {% if comment.comment_body %}
+                                                        <br><p style="margin-left: 30px">{{ comment.comment_body }}</p>
+                                                        {% else %}
+                                                            <br><em style="margin-left: 30px">пользователь оставил только оценку</em>
+                                                        {% endif %}
+                                                    </div>
+                                                    <!-- .comment-content -->
+{#                                                    <div class="reply"> <a class="comment-reply-link" href="#respond">Reply</a> </div>#}
+                                                    <!-- .reply -->
+                                                <br><hr><br>
+                                                </article>
+                                            {% endif %}
+                                        {% endfor %}
+                            {% else %}
+                                <div class="col-xl-12 col-lg-12 col-xs-12">
+                                    <h2>Никто еще не оставил своего отзыва.</h2><br><br>
+                                </div>
+                            {% endif %}
+
+
+
+                        <!-- .post-comments -->
+                        <br><br><br>
+                        <section>
+                            <div id="form-wrapper" class="group">
+                                <div id="respond" class="comment-respond">
+
+
+
+                                    <form action="{% url 'add_comment_url' %}" method="post" id="commentform" class="comment-form" novalidate="" >
+                                        <div class="col-xl-12 col-lg-4 col-xs-4">
+                                            <h3>
+                                                Оставить свой отзыв
+                                            </h3>
+                                            <p class="comment-notes">Ваш адрес электронной почты и телефон не будет опубликованы. Обязательные поля помечены <span class="required">*</span> </p>
+                                        </div>
+
+
+                                        <div class="col-xl-6 col-lg-4 col-xs-4">
+                                            <h3 style="color: #702000">{{ comment_form.name_person.errors }}</h3>
+                                            <b>{{ comment_form.name_person.label }}</b>
+                                            {{ comment_form.name_person }}
+                                        </div>
+                                        <div class="col-xl-6 col-lg-12 col-xs-12">
+                                            <h3 style="color: #702000">{{ comment_form.email.errors }}</h3>
+                                            <b>{{ comment_form.email.label }}</b>
+                                            {{ comment_form.email }}
+                                        </div>
+
+
+                                        <div class="col-xl-4 col-lg-4 col-xs-4">
+                                            <h3 style="color: #702000">{{ comment_form.phone.errors }}</h3>
+                                            <br><b>{{ comment_form.phone.label }}</b>
+                                            {{ comment_form.phone}}
+                                        </div>
+                                        <div class="col-xl-4 col-lg-12 col-xs-12">
+                                            <h3 style="color: #702000">{{ comment_form.kind_job.errors }}</h3>
+                                            <br><b>{{ comment_form.kind_job.label }}</b>
+                                            {{ comment_form.kind_job }}
+                                        </div>
+                                        <div class="col-xl-4 col-lg-12 col-xs-12">
+                                            <h3 style="color: #702000">{{ comment_form.job_satisfaction.errors }}</h3>
+                                            <br><b>{{ comment_form.job_satisfaction.label }}</b>
+                                            {{ comment_form.job_satisfaction }}
+                                        </div>
+
+                                        <div class="col-xl-12 col-lg-12 col-xs-12">
+                                            <h3 style="color: #702000">{{ comment_form.comment_body.errors }}</h3>
+                                            <br><b>{{ comment_form.comment_body.label }}</b>
+                                            {{ comment_form.comment_body }}
+                                        </div>>
+
+
+
+
+                                        <div class="col-xl-12 col-lg-12 col-xs-12">
+                                            <br><br>
+                                            {% if not site_settings.confirm_main_comments %}
+                                                <p class="form-allowed-tags"> Ваш отзыв будет опубликован после проверки администратора</p>
+                                            {% endif %}
+                                            {% csrf_token %}
+                                            <p class="form-submit"> <input name="submit" type="submit" id="submit" value="Отправить отзыв"> </p>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- #respond -->
+                            </div>
+                            <!-- #form-wrapper -->
+                        </section>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% load static %}
+{% if service_kind_works %}
+
+    <h2>Предоставлямые виды работы</h2>
+
+    {% for service in service_kind_works%}
+        <div class="col-xl-4 col-md-6 col-xs-12">
+            <div class="item item-left">
+                <figure class="item-thumb">
+                    <!--555x350-->
+                    {% if service.main_image %}<a href="{{ service.get_absolute_url }}"><img src="{{ service.main_image.url }}" style="height: 200px; width: 300px" alt=""></a>{% else %}<img src="{% static 'images/not-image.jpg' %}" style="height: 200px; width: 300px" class="example_beauty" />{% endif %}
+                </figure>
+                <div class="item-content">
+                    <p class="item-title"><a href="{{ service.get_absolute_url }}">{{ service.name }}</a></p>
+{#                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, alias aliquam amet aperiam consequuntur deleniti doloribus eaque eum excepturi fugit libero, odio omnis perferendis perspiciatis sunt temporibus totam, vel vero!</p>#}
+                </div>
+            </div>
+                </div>
+    {% endfor %}
+
+{% endif %}
+
+
+
+

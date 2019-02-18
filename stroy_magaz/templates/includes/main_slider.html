@@ -1,0 +1,40 @@
+{% if main_sliders %}
+    <main class="main main-home">
+        <section class="widget widget_ci-slideshow">
+            <div class="widget-wrap" style="color: #FFF;">
+                <div class="main-slider ci-slider loading" data-slideshow="1" data-slideshowspeed="6000" data-animationspeed="600">
+                    <ul class="slides">
+                        <!-- Left aligned slide 1920x700-->
+                        {% for main_slider in main_sliders %}
+                            <li style="background-image: url({{ main_slider.image.url }});">
+                                <div class="hero-content">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="{% cycle 'col-lg-6 col-md-8 col-xs-12' 'col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-xs-12' 'col-lg-6 offset-lg-6 col-md-8 offset-md-4 col-xs-12' %}">
+                                                {% if main_slider.title %}
+                                                    <p style="text-shadow: 0 0 7px {% cycle 'blue' 'red' 'green' 'indigo' %};" class="hero-title ">{{ main_slider.title }}</p>
+                                                {% endif %}
+                                                {% if main_slider.description %}
+                                                    <div class="hero-content-text">
+                                                        <p style="text-shadow: 0 0 7px black;">{{ main_slider.description }}</p>
+                                                    </div>
+                                                {% endif %}
+
+                                                {% if main_slider.button_name %}
+                                                    {% include 'components/order_create_form.html' %}
+                                                {% elif main_slider.title or main_slider.description %}
+                                                    <a href="" class="btn btn-lg">Оформить заявку<i class="fa fa-caret-right"></i></a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endif %}

@@ -1,0 +1,117 @@
+/* -----------------------------------------
+	02. Main Navigation
+----------------------------------------- */
+
+.nav {
+	margin-top: 4px;
+}
+
+.nav ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.navigation {
+	@include clearfix();
+  text-align: right;
+
+  // Navigation functional styles
+	li { position: relative; z-index: 100;}
+	> li { display: inline-block; }
+	ul { position: absolute; z-index: 300; top: -999em; }
+	> li:last-child ul { right: 0; }
+	li:hover > ul,
+	.sfHover > ul { top: auto; }
+	li li:hover > ul,
+	li .sfHover > ul { top: 0; right: 100%; }
+	li li li:hover > ul,
+	li li .sfHover > ul{ top: 0; right: 100%; }
+	a { display: block; white-space: nowrap; }
+
+
+  a {
+		font-family: $secondary-font;
+		color: $nav-color;
+		font-weight: bold;
+		text-align: left;
+    /* Global Menu Link Styles */
+  }
+
+  > li:first-child > a { }
+  > li:last-child > a {
+		margin-right: 0;
+	}
+
+  a:hover,
+  .sfHover > a {
+    text-decoration: none;
+    /* First Level & Global Menu Link Hover Styles */
+  }
+
+  > li > a {
+		text-transform: uppercase;
+		border-bottom: 4px solid transparent;
+		margin-right: 22px;
+    /* First Level Menu Link Styles */
+  }
+
+  > li ul a {
+		border-bottom: 1px solid $border-color;
+		padding: 9px 15px;
+    /* All Other Menu Level Link Styles */
+  }
+
+  > li ul a:hover,
+  > li ul .sfHover > a {
+		color: $text-color;
+    /* All Other Level Menu Link Hover Styles */
+  }
+
+  > li > a:hover,
+  > li.sfHover > a,
+  > li.sfHover > a:active,
+  > li.current_page_item > a,
+  > li.current-menu-item > a,
+  > li.current-menu-ancestor > a,
+  > li.current-menu-parent > a,
+  > li.current > a {
+		color: $text-color;
+		border-bottom-color: $primary-color;
+   /* WordPress First Level Current/Ancestor Hover Page Styles */
+  }
+
+  ul {
+		background-color: #FFF;
+		border: 1px solid $border-color;
+		border-bottom: 0;
+		min-width: 200px;
+		box-shadow: 0 0 29px rgba(#000, .07);
+    /* All Lower Level Menu Container Styles */
+  }
+
+  a.sf-with-ul {
+    padding-right: 10px;
+    position: relative;
+    /* Styling for navigation arrows  ---------- */
+  }
+
+  &.sf-arrows .sf-with-ul:after {
+    content: '\f078';
+		font-family: FontAwesome;
+    position: absolute;
+    top: 50%;
+    right: 1px;
+    margin-top: -10px;
+		font-size: 8px;
+		font-weight: normal;
+  }
+
+  &.sf-arrows ul .sf-with-ul:after {
+ 		right: 8px;
+		content: "\f054";
+		margin-top: -6px;
+    /* Styling for right facing arrows  ---------- */
+  }
+}
+

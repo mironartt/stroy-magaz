@@ -1,0 +1,128 @@
+<style>
+    .border {
+        list-style: none;
+        padding: 0;
+    }
+    .border li {
+        font-family: "Trebuchet MS", "Lucida Sans";
+        padding: 7px 20px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border-left: 10px solid #f05d22;
+        box-shadow: 2px -2px 5px 0 rgba(0,0,0,.1),
+        -2px -2px 5px 0 rgba(0,0,0,.1),
+        2px 2px 5px 0 rgba(0,0,0,.1),
+        -2px 2px 5px 0 rgba(0,0,0,.1);
+        font-size: 20px;
+        letter-spacing: 2px;
+        transition: 0.3s all linear;
+    }
+    .border li:nth-child(2){border-color: #8bc63e;}
+    .border li:nth-child(3){border-color: #fcba30;}
+    .border li:nth-child(4){border-color: #1ccfc9;}
+    .border li:nth-child(5){border-color: #493224;}
+    .border li:hover {border-left: 10px solid transparent;}
+    .border li:nth-child(1):hover {border-right: 10px solid #f05d22;}
+    .border li:nth-child(2):hover {border-right: 10px solid #8bc63e;}
+    .border li:nth-child(3):hover {border-right: 10px solid #fcba30;}
+    .border li:nth-child(4):hover {border-right: 10px solid #1ccfc9;}
+    .border li:nth-child(5):hover {border-right: 10px solid #493224;}
+</style>
+{% extends 'base.html' %}
+{% load static %}
+
+
+{%  block title %}
+
+    Категория: {{ topic.name  }}
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="page-hero">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h1 class="page-title">Портфолио: {{ topic.name }}</h1>
+                        <p class="page-subtitle">Наши проекты, работы и достижения</p>
+                    </div>
+                </div>
+            </div>
+			</div>
+			<main class="main">
+				<div class="container">
+                    <p class="page-subtitle">
+                        <div class="entry-meta">
+                            <p class="entry-meta-item entry-categories"><a href="{% url 'home_url' %}">Главная</a></p>
+                            <p class="entry-meta-item entry-comments-link"><a href="{% url 'portfolio:list_all_portfolio' %}">Портфолио</a></p>
+                            <p class="entry-meta-item entry-comments-link">{{ topic.name }}</p>
+                        </div>
+                    </p>
+
+					<div class="row">
+						<div class="col-xl-9 col-lg-8 col-xs-12">
+
+                            {% include 'portfolio/includes/list_iter.html' %}
+
+{#							<div class="paging"> <span>Page 3 of 4</span> <a href="">1</a> <a href="">2</a> <span class="current">3</span> <a href="">4</a> </div>#}
+
+                        </div>
+
+
+
+{#                        <div class="col-xl-3 col-lg-4 col-xs-12">#}
+{#							<div class="sidebar">#}
+{#								<aside class="widget widget_text group">#}
+{#									<h3 class="widget-title">text widget</h3>#}
+{#									<p>Nulla at nulla justo, eget luctus tortor. Nulla facilisi. Duis aliquet egestas purus in blandit. Curabitur vulputate, ligula lacinia scelerisque tempor, lacus lacus ornare ante. Nulla at nulla justo, eget luctus tortor. Nulla facilisi. Duis aliquet#}
+{#										egestas purus.</p>#}
+{#								</aside>#}
+{#								<!-- /widget -->#}
+{#								<aside class="widget widget_search group">#}
+{#									<h3 class="widget-title">search</h3>#}
+{#									<form action="/" method="get" class="searchform">#}
+{#										<div class="form-inset-group"> <label for="s" class="screen-reader-text">Search for:</label> <input type="search" id="s" name="s" value="" placeholder="Search"> <button class="searchsubmit" type="submit"><i class="fa fa-search"></i></button> </div>#}
+{#									</form>#}
+{#								</aside>#}
+{#								<aside class="widget widget_categories group">#}
+{#									<h3 class="widget-title">widget title</h3>#}
+{#									<ul>#}
+{#										<li><a href="#">Some list option</a></li>#}
+{#										<li><a href="#">Some list option</a>#}
+{#											<ul class="children">#}
+{#												<li><a href="">Child Option</a></li>#}
+{#												<li><a href="">Child Option</a></li>#}
+{#												<li><a href="">Child Option</a>#}
+{#													<ul class="chldren">#}
+{#														<li><a href="">Grandchild Option</a></li>#}
+{#														<li><a href="">Grandchild Option</a></li>#}
+{#														<li><a href="">Grandchild Option</a></li>#}
+{#													</ul>#}
+{#												</li>#}
+{#											</ul>#}
+{#										</li>#}
+{#										<li><a href="#">Some list option</a></li>#}
+{#									</ul>#}
+{#								</aside>#}
+{#								<!-- /widget -->#}
+{#								<!-- For a list of all supported social icons please see: http://fontawesome.io/icons/#brand -->#}
+{#								<aside class="widget widget_ci_social_widget ci-socials group">#}
+{#									<h3 class="widget-title">socials</h3> <a href="#" class="social-icon" title="Subscribe to our RSS feed."><i class="fa fa-rss"></i></a> <a href="#" class="social-icon" title="Follow us on twitter."><i class="fa fa-twitter"></i></a>#}
+{#									<a href="#" class="social-icon" title="Like us on Facebook."><i class="fa fa-facebook"></i></a> <a href="#" class="social-icon" title="See our Dribbble shots."><i class="fa fa-dribbble"></i></a> </aside>#}
+{#							</div>#}
+{#						</div>#}
+                        {% include 'portfolio/includes/right_column.html' %}
+
+
+					</div>
+				</div>
+			</main>
+
+
+
+
+
+{% endblock %}

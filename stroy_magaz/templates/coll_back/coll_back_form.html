@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{%  block title %}
+
+    {% if site_settings.site_name %}
+        Обратный звонок |{{ site_settings.site_name  }}|
+    {% else %}
+        Обратный звонок
+    {% endif %}
+{% endblock %}
+{% block content %}
+
+
+{% load static %}
+
+
+<div class="page-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="page-title">Обратный звонок</h1>
+                {% if сoll_back.description_short %}
+                    <p class="page-subtitle">{{ сoll_back.description_short }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+<main class="main">
+    <div class="container">
+
+        <p class="page-subtitle">
+            <div class="entry-meta">
+                <p class="entry-meta-item entry-categories"><a href="{% url 'home_url' %}">Главная</a></p>
+                <p class="entry-meta-item entry-comments-link">Обратный звонок</p>
+            </div>
+        </p>
+            {% if сoll_back.avalible %}
+                <div class="col-xl-12 col-lg-8 col-xs-12">
+                    <article class="entry">
+                        <div id="comments">
+                            <section>
+                                <div id="form-wrapper" class="group">
+                                    <div id="respond" class="comment-respond">
+                                        {% if сoll_back.title %}
+                                            <h3 class="page-title">{{ сoll_back.title }}</h3>
+                                        {% else %}
+                                            <h3 class="page-title">Форма обратного звонка</h3>
+                                        {% endif %}
+
+
+
+                                        <form action="{% url 'add_coll_bacl_url' %}" method="post" id="commentform" class="comment-form" novalidate="">
+
+
+                                            <p class="comment-notes">Обязательные для заполнения поля<span class="required">*</span> </p>
+
+
+{#                                            <p class="comment-form-author"> <label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" size="30" aria-required="true"> </p>#}
+{#                                            <p class="comment-form-email"> <label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" size="30" aria-required="true"> </p>#}
+{#                                            <p class="comment-form-url"> <label for="url">Website</label> <input id="url" name="url" type="url" size="30"> </p>#}
+{#                                            <p class="comment-form-comment"> <label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea> </p>#}
+
+                                            {{ сoll_back_form.as_p }}
+                                            {% csrf_token %}
+                                            <p class="form-allowed-tags"> Наши специалисты свяжутся с вами, ожидайте звонка </p>
+                                            <p class="form-submit"> <input name="submit" type="submit" id="submit" value="{% if сoll_back.btn_name %}{{ сoll_back.btn_name }}{% else %}Заказать{% endif %}"> </p>
+                                        </form>
+                                    </div>
+                                    <!-- #respond -->
+                                </div>
+                                <!-- #form-wrapper -->
+                            </section>
+
+                        </div>
+                    </article>
+                </div>
+            {% else %}
+                <div align="center">
+                    <figure class="entry-thumb">
+                        <span align="center"><img align="center" src="{% static 'images/non-page.png' %}" alt=""> </span>
+                    </figure>
+                </div>
+
+            {% endif %}
+        </div>
+    </div>
+</main>
+
+{% endblock %}

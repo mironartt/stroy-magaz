@@ -1,0 +1,63 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{%  block title %}
+
+    {% if site_settings.site_name %}
+        {{ service.name }}: {{ site_settings.site_name  }}
+    {% else %}
+        {{ service.name }}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="page-hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="page-title">{{ service.name }}</h2>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <main class="main">
+        <div class="container">
+            <p class="page-subtitle">
+                <div class="entry-meta">
+                    <p class="entry-meta-item entry-categories"><a href="{% url 'home_url' %}">Главная</a></p>
+                    <p class="entry-meta-item entry-comments-link"><a href="{% url 'service:kind_works_list_url' %}">Все услуги</a></p>
+                    <p class="entry-meta-item entry-comments-link"><a href="{{ kind_work.get_absolute_url }}">{{ kind_work }}</a></p>
+                    <p class="entry-meta-item entry-comments-link">{{ service }}</p>
+                </div>
+            </p>
+            <div class="row">
+                <div class="col-xl-9 col-lg-8 col-xs-12">
+                    <article class="entry">
+                        {% if service.desctiptions %}
+                            {{ service.desctiptions|safe }}
+                        {% else %}
+                            <h4>Описание данной статьи еще не готово.</h4>
+                            Для получение подробностей свяжитесь с нами.
+                        {% endif %}
+
+                    </article>
+                </div>
+
+                {% include 'kind_works&service/includes/right_column.html' %}
+
+
+
+            </div>
+        </div>
+    </main>
+    {% include  'kind_works&service/includes/gallery_services.html' %}
+
+    {% include 'kind_works&service/includes/kind_wokr_comments.html' %}
+
+
+{% endblock %}

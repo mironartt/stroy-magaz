@@ -1,0 +1,239 @@
+{% load static %}
+<style>
+    .text-dec {
+        text-shadow: 1px 1px 0 black, -1px -1px 0 black
+    }
+
+    .imagetext {
+        display:inline-block;
+        position:relative;
+    }
+    .imagetext .for_text {
+        display:block;
+        position:absolute;
+        left:0;
+        bottom:0;
+        width:100%;
+        box-sizing:border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+
+        color:#fff;
+
+        padding:10px;
+        background-color:rgba(0,0,0,.3);
+
+
+    }
+    .imagetext h6 {
+        font-family:Arial, Helvetica, sans-serif;
+        font-size:18px;
+    }
+    .imagetext span {
+        font-size:12px;
+    }
+}
+</style>
+
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>
+
+            {%  block title %}
+                {% if site_settings.site_name %}
+                    Главная: {{ site_settings.site_name  }}
+                {% else %}
+                    Главная
+                {% endif %}
+            {% endblock %}
+
+        </title>
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700%7CMontserrat:700&subset=latin,greek' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/flexslider.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/mmenu.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/magnific.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+{#        <link rel="stylesheet" type="text/css" href="{% static 'css/generic.css' %}">#}
+        <link rel="stylesheet" type="text/css" href="{% static 'custom.css' %}">
+		<link rel="shortcut icon" href="#">
+		<link rel="apple-touch-icon" href="#">
+		<link rel="apple-touch-icon" sizes="72x72" href="#">
+		<link rel="apple-touch-icon" sizes="114x114" href="#"> </head>
+
+
+	<body>
+		<div id="page">
+
+            <!-- Хедре -->
+            {% include 'includes/header.html' %}
+
+            {% block content %}
+
+
+            <!-- Слайдер главной страницы -->
+
+			{% include 'includes/main_slider.html' %}
+
+
+			<main class="main">
+				<div class="container">
+					<div class="row">
+						<div class="col-xl-12 col-lg-12 col-xs-12">
+							<article class="entry">
+                                <div class="entry-content">
+                                    <p>{{ home_page_text.text_home_page| safe }}</p>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+
+            <!-- Отображение 8 типор работ -->
+
+
+            <div class="container">
+                <div class="page-hero">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h1 class="page-title" align="center">Услуги которые предоставляет наша компания</h1>
+                            <p class="page-subtitle" align="center">При возникновении вопросов свяжитесь по указанному телефону или через форму обратной связи</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% include 'includes/list_kind_works.html' %}
+
+
+{#			<main class="main">#}
+				<div class="container">
+					<div class="row">
+						<div class="col-xl-12 col-lg-12 col-xs-12">
+							<article class="entry">
+                                <div class="entry-content">
+                                    <p>{{ home_page_text.text_home_page_2| safe }}</p>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+                <br><br>
+{#            </main>#}
+
+
+            <!-- Отображение 8 объектов портфолио -->
+
+            <div class="container">
+                <div class="page-hero">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h1 class="page-title" align="center">Наше портфолио</h1>
+                            <p class="page-subtitle" align="center">Проекты которые мы выполнили и нам не стытно их показать </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% include 'includes/list_portflio_obj.html' %}
+
+            {% if coll_back.avalible %}
+                <main>
+                    <section class="widget widget_ci-custom-content widget-padded">
+                        <div class="widget-wrap wrap-extra-pad" style="background-image: url({% if coll_back.image %}{{ coll_back.image.url }}{% else %}http://placehold.it/1920x600{% endif %}); color: #fff;">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-xs-12">
+                                        <div class="hero-content text-center">
+                                            {% if coll_back.title %}
+                                                <h2 style="text-shadow: 0 0 7px red;" class="hero-title">{{ coll_back.title }}</h2>
+                                            {% else %}
+                                                <h2 style="text-shadow: 0 0 7px red;" class="hero-title">Обратный звонок</h2>
+                                            {% endif %}
+                                            {% if coll_back.description %}
+                                                <div class="hero-content-text">
+                                                    <p style="text-shadow: 0 0 3px blue;">{{ coll_back.description }}</p>
+                                                </div>
+                                            {% endif %}
+                                            {% if coll_back.btn_name %}
+                                                <a href="{% url 'coll_bacl_form_url' %}" class="btn btn-lg">{{ coll_back.btn_name }}<i class="fa fa-caret-right"></i></a>
+                                            {% else %}
+                                                <a href="{% url 'coll_bacl_form_url' %}" class="btn btn-lg">Перезвонить<i class="fa fa-caret-right"></i></a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </main><br><br>
+            {% endif %}
+
+            {% if partners %}
+
+                <section class="widget widget_ci-clients widget-padded">
+                    <div class="widget-wrap" style="background-color: #362F2D; color: #fff;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="section-title-wrap">
+                                        <h2 class="section-title">Наши партнеры</h2>
+                                        <p class="section-subtitle">И бренды с которыми мы сотрудничаем</p>
+                                    </div>
+                                    <div class="client-list">
+                                        {% for partner in partners %}
+                                            <a {% if partner.link %}href="{{ partner.link }}"{% endif %} target="_blank"><img src="{{ partner.image.url }}" style="height: 100px; width: 120px;" alt=""></a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+
+
+
+
+            <!-- коментарии-->
+{#            {% include 'includes/comments.html' %}#}
+
+
+
+
+
+            {% endblock %}
+
+            <!-- Футер -->
+		    {% include 'includes/footer.html' %}
+
+            <a href="#" class="back-top back-top-hidden"><i class="fa fa-arrow-up"></i></a> </div>
+		<!-- #page -->
+		<!-- Javascript
+================================================== -->
+		<script src="{% static 'js/jquery-1.12.3.min.js' %}"></script>
+		<script src="{% static 'js/superfish.js' %}"></script>
+		<script src="{% static 'js/jquery.mmenu.min.all.js' %}"></script>
+		<script src="{% static 'js/jquery.flexslider.js' %}"></script>
+		<script src="{% static 'js/jquery.fitvids.js' %}"></script>
+		<script src="{% static 'js/jquery.magnific-popup.js' %}"></script>
+		<script src="{% static 'js/jquery.matchHeight.js' %}"></script>
+		<script src="{% static 'js/scripts.js' %}"></script>
+
+        <script src="{% static 'js/select.js' %}"></script>
+		<script src="{% static 'js/select_demo2.js' %}"></script>
+	</body>
+
+</html>

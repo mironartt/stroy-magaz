@@ -1,0 +1,37 @@
+{% load static %}
+<div class="row row-equal row-items">
+    {% if p_objects %}
+
+        {% for obj in p_objects %}
+            {% if obj.availability %}
+                <div class="col-xl-4 col-md-6 col-xs-12">
+                    <div class="item item-left">
+                        <figure class="item-thumb">
+                            {% if obj.main_image %}<a href=""><img src="{{ obj.main_image.url }}" style="height: 200px; width: 300px" alt=""></a>{% else %}<img src="{% static 'images/not-image.jpg' %}" style="height: 200px; width: 300px" class="example_beauty" />{% endif %}
+                        </figure>
+                        <div class="item-content">
+                            <p class="item-title"><a href="{{ obj.get_absolute_url }}">{{ obj.name }}</a></p>
+                            {% if  obj.descripiton %}
+                                <p>{{ obj.descripiton|safe|truncatewords:15  }}</p>
+                            {% endif %}
+                            <a href="{{ obj.get_absolute_url }}" class="btn btn-arrow">Подробнее</a>
+{#                            <a href="{% url 'portfolio:p_obj_detail_url' slug=obj.slug %}" class="btn btn-arrow">Подробнее</a>#}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+    {% else %}
+        <div class="col-xl-12 col-md-12 col-xs-12">
+            <div align="center">
+                <figure class="entry-thumb">
+                    <span align="center"><img align="center" src="{% static 'images/non-page.png' %}" alt=""> </span>
+                </figure>
+            </div>
+
+        </div>
+
+    {% endif %}
+</div>
+

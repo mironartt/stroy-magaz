@@ -1,0 +1,40 @@
+{#<h3 class="widget-title">socials</h3>#}
+<div align="right">
+    {% if site_settings.social_link_vk %}
+        <a href="{{ site_settings.social_link_vk }}" target="_blank" class="social-icon" title="Наш профиль ВК.">
+            <i class="fa fa-vk"></i>
+        </a>
+    {% endif %}
+    {% if site_settings.social_link_youtube %}
+        <a href="{{ site_settings.social_link_youtube }}" target="_blank" class="social-icon" title="Наш профиль YouTube.">
+            <i class="fa fa-youtube"></i>
+        </a>
+    {% endif %}
+    {% if site_settings.social_link_linkedin %}
+        <a href="{{ site_settings.social_link_linkedin }}" target="_blank" class="social-icon" title="Наш профиль LinkedIn.">
+            <i class="fa fa-linkedin"></i>
+        </a>
+    {% endif %}
+    {% if site_settings.social_link_twitter %}
+        <a href="{{ site_settings.social_link_twitter }}" target="_blank" class="social-icon" title="Наш профиль Twitter.">
+            <i class="fa fa-twitter"></i>
+        </a>
+    {% endif %}
+    {% if site_settings.social_link_facebook %}
+        <a href="{{ site_settings.social_link_facebook }}" target="_blank" class="social-icon" title="Наш профиль FaceBook">
+            <i class="fa fa-facebook"></i>
+        </a>
+    {% endif %}
+    {% if site_settings.social_link_other_1 %}
+        <a href="{{ site_settings.social_link_other_1 }}" target="_blank" class="social-icon" title="Наш профиль">
+            <i class="fa fa-asterisk"></i>
+        </a>
+    {% endif %}
+    {% if site_settings.social_link_other_2 %}
+        <a href="{{ site_settings.social_link_other_2 }}" target="_blank" class="social-icon" title="Наш профиль">
+            <i class="fa fa-asterisk"></i>
+        </a>
+    {% endif %}
+</div>
+
+

@@ -1,0 +1,49 @@
+
+{% if service.get_list_images and service.gallery_availability %}
+
+    <main class="main">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <div class="page-hero">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <h1 class="page-title">Галерея</h1>
+                                    <p class="page-subtitle">Раздел: {{ service.name }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row row-equal row-items">
+                        {% for image in service.get_list_images %}
+                            <div class="col-md-3 col-xs-12">
+                                <div class="item item-left">
+                                    <figure class="item-thumb">
+                                        <a href="{{ image.image.url }}"  target="_blank"><img src="{{ image.image.url }}" style="height: 200px; width: 300px" alt=""></a>
+                                    </figure>
+                                    <div class="item-content">
+
+                                        <p class="item-title">
+                                            <a href="">
+                                                {{ image.name }}
+                                            </a>
+                                        </p>
+                                        {% if image.description %}
+                                            <p>{{ image.description }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+
+{% endif %}
