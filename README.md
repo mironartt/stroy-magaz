@@ -1,5 +1,5 @@
 # stroy-magaz
-Тестовый вариант деплоя: truuba.ru 
+Тестовый вариант деплоя: http://www.truuba.ru/ 
 
 
 
