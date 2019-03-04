@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '2n@=k_8zpwwllo3@am5(txqjma(f8zp(#7llhi(6@szow%(i9v'
+SECRET_KEY = '_________________________________________________'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -257,8 +257,8 @@ JET_INDEX_DASHBOARD = 'stroy_magaz.dashboard.CustomIndexDashboard'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = "truuuuuuubaaa@gmail.com"
-EMAIL_HOST_PASSWORD = "a22448866"
+EMAIL_HOST_USER = "nick_name@gmail.com"
+EMAIL_HOST_PASSWORD = "qwerty"
 EMAIL_USE_TLS = True
 
 
