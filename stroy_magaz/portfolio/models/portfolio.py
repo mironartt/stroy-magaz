@@ -1,21 +1,20 @@
 from django.db import models
-
-from django.db import models
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.urls import reverse
 from .images import Images
 
+
+
 class Topic(models.Model):
+    """Категории раздела портфолио"""
+
+    class Meta:
+        verbose_name = 'Категории раздела портфолио'
+        verbose_name_plural = '2. Категории раздела портфолио'
 
     name = models.CharField(max_length=200, verbose_name='Названи категории')
     slug = models.SlugField()
     descriprion = RichTextUploadingField(blank=True, null=True, verbose_name='Описание')
-
-
-    class Meta:
-        verbose_name = 'Категории'
-        verbose_name_plural = 'Категории'
-
 
     def __str__(self):
         return self.name
@@ -35,6 +34,13 @@ def generate_filename(instance, filename):
 
 
 class Portfolio(models.Model):
+    """Оъекты раздела портфолио"""
+
+    class Meta:
+        ordering = ('name',)
+        index_together = (('id', 'slug'),)
+        verbose_name = 'Портфолио'
+        verbose_name_plural = '3. Объекты портфолио'
 
     topic = models.ForeignKey(Topic, on_delete=models.DO_NOTHING, verbose_name='Категория')
     name = models.CharField(max_length=200, verbose_name='Название')
@@ -47,11 +53,6 @@ class Portfolio(models.Model):
     availability = models.BooleanField(default=True,
                                                verbose_name='Отображать на сайте')
 
-    class Meta:
-        ordering = ('name',)
-        index_together = (('id', 'slug'),)
-        verbose_name = 'Портфолио'
-        verbose_name_plural = 'Объекты портфолио'
 
     def get_absolute_url(self):
         return reverse('portfolio:p_obj_detail_url', args=[self.slug])

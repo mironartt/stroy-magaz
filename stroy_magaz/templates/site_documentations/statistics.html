@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if request.user.is_superuser and request.user.is_authenticated %}
+         <div class="page-hero">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h1 class="page-title">Статистика</h1>
+{#                        <p class="page-subtitle">Наши проекты, работы и достижения</p>#}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <main class="main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-xs-12">
+                        <article class="entry">
+                            <div class="entry-content">
+                                <div class="item-content">
+                                    <p class="item-title">Данная "Статистика" отобржает количество посещения пользователями главной страницы сайта.</p>
+                                    <p>Пользователь идентефицируется под данным сессии. Они обнуляются когда пользователь закрыл браузер или наступил следующий день.</p>
+                                    <p>Данные статистики за день обнуляются с наступлением следующего дня, данные за месяц соответсвенно с наступлением следующего месяца.</p>
+                                    <br><hr>
+                                    <p class="item-title">Число посещений за нынешний день: <span style="margin-left: 50px">{{ number_visits_day }}</span></p><br>
+                                    <p class="item-title">Число посещений за нынешний месяц: <span style="margin-left: 50px">{{ number_visits_month }}</span></p><br><br><hr>
+                                    <p class="item-title">Число посещений за все время: <span style="margin-left: 50px">{{ number_visits_all_time }}</span></p><br>
+
+
+                                </div>
+
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </main>
+    {% endif %}
+
+{% endblock %}

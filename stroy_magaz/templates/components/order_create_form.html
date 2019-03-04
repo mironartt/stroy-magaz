@@ -1,5 +1,27 @@
 
 <aside class="widget widget_text group">
-<p><a href="{% url 'order_create_form_url' %}" class="btn btn-lg">Оформить заявку<i class="fa fa-caret-right"></i></a></p>
-<div ><p><a href="{% url 'coll_bacl_form_url' %}" class="btn btn-lg">Заказать звонок<i class="fa fa-caret-right"></i></a></p></div>
+
+    {% if site_settings.name_bottom_order %}
+        <div>
+            <p><a href="{% url 'order_create_form_url' %}" class="btn btn-lg">{{ site_settings.name_bottom_order }}<i class="fa fa-caret-right"></i></a></p>
+        </div>
+    {% else %}
+        <div>
+            <p><a href="{% url 'order_create_form_url' %}" class="btn btn-lg">Оформить заявку<i class="fa fa-caret-right"></i></a></p>
+        </div>
+    {% endif %}
+    <br/>
+    {% if site_settings.name_bottom_coll_back %}
+        <div>
+            <p><a href="{% url 'coll_bacl_form_url' %}" class="btn btn-lg">{{ site_settings.name_bottom_coll_back }}<i class="fa fa-caret-right"></i></a></p>
+        </div>
+    {% else %}
+        <div>
+            <p><a href="{% url 'coll_bacl_form_url' %}" class="btn btn-lg">Заказать звонок<i class="fa fa-caret-right"></i></a></p>
+        </div>
+    {% endif %}
+
 </aside>
+
+
+

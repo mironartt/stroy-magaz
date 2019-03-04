@@ -10,6 +10,9 @@ from portfolio.models.portfolio import Portfolio  #name, descriprion
 from portfolio.models.portfolio import Topic #name, descriprion
 from others.models.about_us import AboutUs #text_about_us_page, text_about_us_page_2, notes,
 from others.models.faq import Faq #question, answer
+from datetime import datetime, timedelta
+from django.utils.dateformat import DateFormat, TimeFormat
+from .models import SiteSettings
 
 
 class SearchView(TemplateView, KindWorkMixin):
@@ -51,6 +54,33 @@ class SearchView(TemplateView, KindWorkMixin):
         data['query_sets'] = query_sets
         data['query_set_count'] = query_set_count
 
+
+        return data
+
+
+
+class Statistics(TemplateView, KindWorkMixin):
+
+    template_name = 'site_documentations/statistics.html'
+
+    def get_context_data(self, *args, **kwargs):
+        data = super(Statistics, self).get_context_data(*args, **kwargs)
+        site_settings = SiteSettings.objects.first()
+
+        data['number_visits_day'] = site_settings.number_visits_day
+        data['number_visits_month'] = site_settings.number_visits_month
+        data['number_visits_all_time'] = site_settings.number_visits_all_time
+
+        return data
+
+
+
+class Documentations(TemplateView, KindWorkMixin):
+
+    template_name = 'site_documentations/documentations.html'
+
+    def get_context_data(self, *args, **kwargs):
+        data = super(Documentations, self).get_context_data(*args, **kwargs)
 
         return data
 

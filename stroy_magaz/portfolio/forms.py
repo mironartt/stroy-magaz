@@ -2,6 +2,8 @@ from django import forms
 from .models.comments import PortfolioComments
 
 class PortfolioCommentsForm(forms.ModelForm):
+    """Форма добавления коментариев в разделе портфолио"""
+
     name_person = forms.CharField(label='* ФИО / Название компании', error_messages={
         'required': 'Данное поле обязательно к заполнение. Пожалуйста введите данные корректно.',
         'invalid': 'Введите данные корректно!'},

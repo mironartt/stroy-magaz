@@ -1,14 +1,15 @@
 from django.db import models
-from django.urls import reverse
-
 from .portfolio import Portfolio
 
 
 
 class PortfolioComments(models.Model):
-    """
-        Модель Коментариев для объектов портфолио
-    """
+    """Модель Коментариев для объектов портфолио"""
+
+    class Meta:
+        ordering = ('-updated',)
+        verbose_name = 'Коментарии объектов портфолио'
+        verbose_name_plural = 'Коментарии объектов портфолио'
 
     parent_object = models.IntegerField(blank=True, null=True, verbose_name='ID Объектa коментирования')
     name_person = models.CharField(max_length=200, verbose_name='Имя того кто написал коментарий')
@@ -20,6 +21,7 @@ class PortfolioComments(models.Model):
     updated = models.DateTimeField(auto_now=True, verbose_name='Обновлен')
 
     moderation = models.BooleanField(default=False, verbose_name='Модерация')
+    watched = models.BooleanField(default=False, verbose_name='Просмотрено')
 
     # def get_absolte_url(self):
     #     return reverse('portfolio:p_obj_detail_url', args=[self.parent_object])
@@ -27,14 +29,6 @@ class PortfolioComments(models.Model):
     def __str__(self):
         # return 'описание: {}'.format(self.descriptions)
         return self.name_person
-
-
-    class Meta:
-        ordering = ('-updated',)
-        verbose_name = 'Коментарии объектов портфолио'
-        verbose_name_plural = 'Коментарии объектов портфолио'
-
-
 
     def obj_name(self):
         if self.parent_object:

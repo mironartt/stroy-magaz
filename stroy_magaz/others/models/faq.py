@@ -4,8 +4,6 @@ from django.urls import reverse
 
 
 
-
-
 class Faq(models.Model):
 
     class Meta:

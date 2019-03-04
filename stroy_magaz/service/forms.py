@@ -3,6 +3,9 @@ from .models.comments import KindWorksComments, ServiceComments
 
 
 class KindWorksCommentsForm(forms.ModelForm):
+    """
+        Форма добавления коментариев в разделе сайта: "Типы работ"
+    """
     name_person = forms.CharField(label='* ФИО / Название компании', error_messages={
         'required': 'Данное поле обязательно к заполнение. Пожалуйста введите данные корректно.',
         'invalid': 'Введите данные корректно!'},
@@ -19,7 +22,6 @@ class KindWorksCommentsForm(forms.ModelForm):
                                              attrs={'type': 'text',
                                                     'placeholder': '** Ваш коментарий'}))
 
-
     class Meta(object):
         model = KindWorksComments
         fields = ['name_person', 'email', 'comment_body', 'parent_object']
@@ -27,6 +29,10 @@ class KindWorksCommentsForm(forms.ModelForm):
 
 
 class ServiceCommentsForm(forms.ModelForm):
+    """
+        Форма добавления коментариев в разделе сайта: "Предоставляемые услуги"
+    """
+
     name_person = forms.CharField(label='* ФИО / Название компании', error_messages={
         'required': 'Данное поле обязательно к заполнение. Пожалуйста введите данные корректно.',
         'invalid': 'Введите данные корректно!'},

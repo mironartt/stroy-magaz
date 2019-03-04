@@ -1,6 +1,6 @@
 {% load static %}
 <div class="col-xl-8 col-lg-8 col-xs-12">
-    {{ contacts.text_about_us_page_2 }}
+    {{ contacts.text_about_us_page_2|safe }}
 
 
 <div class="col-xl-4 col-lg-4 col-xs-12">
@@ -35,7 +35,6 @@
     {% if contacts.time_work %}
         <aside class="widget">
             <h3 class="widget-title">Режим работы</h3>
-            <p>Вы всегда моете оставить заявку или заказать обратный звонок в удобное для вас время на нашем сайте или </p>
             {% if contacts.time_work %}
                 <p><h4>{{ contacts.time_work }}</h4></p>
             {% endif %}

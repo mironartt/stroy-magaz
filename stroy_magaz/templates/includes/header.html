@@ -2,7 +2,7 @@
 
 .catside a:hover {background: rgba(250, 255, 0, 0.45); color: #fff;}
 </style>
-
+<!--<h1>{{ request.user }}</h1>-->
 <header class="header">
     <div class="pre-head">
         <div class="container">
@@ -99,6 +99,21 @@
                                     <li>
                                         <a href="{% url 'main_comments_url' %}">Отзывы</a>
                                     </li>
+
+                                </ul>
+                                <ul class="navigation">
+
+                                    {% if request.user.is_superuser and request.user.is_authenticated %}
+                                        <li class="current-menu-item"><a href="/admin/">Админка</a>
+{#                                            <ul>#}
+{#                                                <br>#}
+{##}
+{##}
+{#                                                <li class="catside"><a href="{% url 'order_create_form_url' %}">Оформить заказ</a></li>#}
+{#                                                <li class="catside"><a href="{% url 'coll_bacl_form_url' %}">Заказать звонок</a></li>#}
+{#                                            </ul>#}
+                                        </li>
+                                    {% endif %}
                                 </ul>
 
                                 <!-- #navigation -->

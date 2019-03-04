@@ -12,6 +12,14 @@ def generate_filename(instance, filename):
 
 
 class Images(models.Model):
+    """Общая галлерея изображений для раздела услуг"""
+
+    class Meta:
+        ordering = ('image',)
+        index_together = (('id', 'slug'),)
+        verbose_name = 'Галлерея для всего раздела услуг'
+        verbose_name_plural = '1. Галлерея для всего раздела услуг'
+
     image = models.ImageField(upload_to=generate_filename, verbose_name='Все изображения приложения услуги')
     name = models.CharField(max_length=200,  unique=True, verbose_name='Наименование')
     description = models.CharField(max_length=800,  blank=True, null=True, verbose_name='Описаниее')
@@ -35,8 +43,4 @@ class Images(models.Model):
         return self.name
 
 
-    class Meta:
-        ordering = ('image',)
-        index_together = (('id', 'slug'),)
-        verbose_name = 'Изображения'
-        verbose_name_plural = 'Изображения'
+

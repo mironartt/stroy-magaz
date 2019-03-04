@@ -14,13 +14,13 @@ class PortfolioCommentsResource(resources.ModelResource):
 
 @admin.register(PortfolioComments)
 class PortfolioCommentsAdmin(ImportExportModelAdmin):
-    """
-    Модель Коментариев для объектов портфолио
-    """
-    list_display = ['name_person','obj_name', 'moderation', 'email', 'comment_body', 'created', 'updated',]
+    """Модель Коментариев для объектов портфолио"""
+
+    save_on_top = True
+    list_display = ['name_person','obj_name', 'moderation', 'email', 'comment_body', 'watched', 'created', 'updated',]
     list_editable = ['moderation']
     readonly_fields = ['obj_name', ]
-    list_filter = ['moderation',]
+    list_filter = ['moderation', 'watched']
     search_fields = ('name_person', 'email', 'comment_body',)
 
 
@@ -30,6 +30,9 @@ class PortfolioCommentsAdmin(ImportExportModelAdmin):
 
 @admin.register(Images)
 class ImagesAdmin(admin.ModelAdmin):
+    """Модель общей галлереи для раздела портфолио"""
+
+    save_on_top = True
     list_display = ['name', 'image_img', 'image', 'description', 'slug', 'created', 'updated']
     readonly_fields = ['image_img', ]
     search_fields = ('descriptions', )
@@ -46,9 +49,9 @@ class PortfolioResource(resources.ModelResource):
 
 @admin.register(Portfolio)
 class PortfolioAdmin(ImportExportModelAdmin):
-    """
-        Модель портфолио
-    """
+    """Модель портфолио"""
+
+    save_on_top = True
     list_display = ['name', 'obj_id', 'image_img', 'topic', 'availability', 'slug',  'created', 'updated',]
     readonly_fields = ['image_img', 'obj_id',]
     list_filter = ['topic']
@@ -57,6 +60,9 @@ class PortfolioAdmin(ImportExportModelAdmin):
 
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
+    """Модель категорий для раздела портфолио"""
+
+    save_on_top = True
     list_display = ['name', 'descriprion', 'slug', ]
     search_fields = ('name',)
     prepopulated_fields = {'slug': ('name',)}

@@ -1,14 +1,10 @@
 from django.db import models
-# from ..validators import validate_file_extension
 from ..validators import validate_file_extension
-from ckeditor_uploader.fields import RichTextUploadingField
 from django.urls import reverse
 
 
-
-
-
 class Documentation(models.Model):
+    """Раздел документации сайта"""
 
     class Meta:
         ordering = ('-updated',)
@@ -23,11 +19,8 @@ class Documentation(models.Model):
     created = models.DateTimeField(auto_now_add=True, verbose_name='Создан')
     updated = models.DateTimeField(auto_now=True, verbose_name='Обновлен')
 
-
     def __str__(self):
-        # return 'описание: {}'.format(self.descriptions)
         return self.title
-
 
     def get_absolute_url(self):
         return reverse('documentations_url')

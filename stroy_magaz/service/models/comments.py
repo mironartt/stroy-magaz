@@ -1,14 +1,18 @@
 from django.db import models
-from django.urls import reverse
-
 from .kindworks import KindWorks
-from .service import Service
+
 
 
 class KindWorksComments(models.Model):
     """
-        Модель Коментариев для объектов Типы работ
+        Модель Коментариев для объектов "Типы работ"
     """
+
+    class Meta:
+        ordering = ('-updated',)
+        verbose_name = '''Коментарии объектов "типы работ"'''
+        verbose_name_plural = '''Коментарии объектов "типы работ"'''
+
 
     parent_object = models.IntegerField(blank=True, null=True, verbose_name='ID Объектa коментирования')
     name_person = models.CharField(max_length=200, verbose_name='Имя того кто написал коментарий')
@@ -21,19 +25,13 @@ class KindWorksComments(models.Model):
 
     moderation = models.BooleanField(default=False, verbose_name='Модерация')
 
+    watched = models.BooleanField(default=False, verbose_name='Просмотрено')
+
     # def get_absolte_url(self):
     #     return reverse('portfolio:p_obj_detail_url', args=[self.parent_object])
 
     def __str__(self):
-        # return 'описание: {}'.format(self.descriptions)
         return self.name_person
-
-
-    class Meta:
-        ordering = ('-updated',)
-        verbose_name = '''Коментарии объектов "типы работ"'''
-        verbose_name_plural = '''Коментарии объектов "типы работ"'''
-
 
 
     def obj_name(self):
@@ -49,17 +47,16 @@ class KindWorksComments(models.Model):
 
 
 
-
-
-
-
-
-
-
 class ServiceComments(models.Model):
     """
-        Модель Коментариев для объектов Типы работ
+        Модель Коментариев для объектов "Предоставляемые услуги"
     """
+
+    class Meta:
+        ordering = ('-updated',)
+        verbose_name = '''Коментарии объектов объектов "предоставяемые услуги"'''
+        verbose_name_plural = '''Коментарии объектов объектов "предоставяемые услуги"'''
+
 
     parent_object = models.IntegerField(blank=True, null=True, verbose_name='ID Объектa коментирования')
     name_person = models.CharField(max_length=200, verbose_name='Имя того кто написал коментарий')
@@ -72,18 +69,14 @@ class ServiceComments(models.Model):
 
     moderation = models.BooleanField(default=False, verbose_name='Модерация')
 
+    watched = models.BooleanField(default=False, verbose_name='Просмотрено')
+
     # def get_absolte_url(self):
     #     return reverse('portfolio:p_obj_detail_url', args=[self.parent_object])
 
     def __str__(self):
-        # return 'описание: {}'.format(self.descriptions)
         return self.name_person
 
-
-    class Meta:
-        ordering = ('-updated',)
-        verbose_name = '''Коментарии объектов объектов "предоставяемые услуги"'''
-        verbose_name_plural = '''Коментарии объектов объектов "предоставяемые услуги"'''
 
 
 

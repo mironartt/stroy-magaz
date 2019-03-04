@@ -20,11 +20,25 @@
                                                     </div>
                                                 {% endif %}
 
-                                                {% if main_slider.button_name %}
-                                                    {% include 'components/order_create_form.html' %}
-                                                {% elif main_slider.title or main_slider.description %}
-                                                    <a href="" class="btn btn-lg">Оформить заявку<i class="fa fa-caret-right"></i></a>
-                                                {% endif %}
+                                                <aside class="widget widget_text group">
+                                                    {% if main_slider.button_name %}
+                                                        <p><a href="{% url 'order_create_form_url' %}" class="btn btn-lg">{{ main_slider.button_name }}<i class="fa fa-caret-right"></i></a></p>
+                                                    {% elif main_slider.title or main_slider.description %}
+                                                        <a href="{% url 'order_create_form_url' %}" class="btn btn-lg">Оформить заявку<i class="fa fa-caret-right"></i></a>
+                                                    {% endif %}
+                                                    {% if main_slider.button_name_coll_back %}
+                                                        <div >
+                                                            <p><a href="{% url 'coll_bacl_form_url' %}" class="btn btn-lg">{{ main_slider.button_name_coll_back }}<i class="fa fa-caret-right"></i></a></p>
+                                                        </div>
+                                                    {% elif main_slider.title or main_slider.description %}
+                                                        <a href="{% url 'coll_bacl_form_url' %}" class="btn btn-lg">Заказать звонок<i class="fa fa-caret-right"></i></a>
+                                                    {% endif %}
+
+
+
+
+
+                                                </aside>
                                             </div>
                                         </div>
                                     </div>

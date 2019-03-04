@@ -13,6 +13,13 @@ def generate_filename(instance, filename):
 
 
 class KindWorks(models.Model):
+    """Модель типов предоставляемых работ"""
+
+    class Meta:
+        ordering = ('name',)
+        index_together = (('id', 'slug'),)
+        verbose_name = 'Тематика работ'
+        verbose_name_plural = '2. Тематика работ'
 
     name = models.CharField(max_length=200, verbose_name='Тематика работ')
     slug = models.SlugField()
@@ -28,12 +35,6 @@ class KindWorks(models.Model):
     def __str__(self):
         return self.name
 
-
-    class Meta:
-        ordering = ('name',)
-        index_together = (('id', 'slug'),)
-        verbose_name = 'Тематика работ'
-        verbose_name_plural = 'Тематика работ'
 
     def get_list_images(self):
         list = self.image.get_queryset()
@@ -64,6 +65,4 @@ class KindWorks(models.Model):
     obj_id.short_description = 'ID объекта'
     obj_id.allow_tags = True
 
-
-    # def get_first_image(self):
 

@@ -8,7 +8,12 @@ from portfolio.views import ListAllPortfolio
 from site_some_settings.views import SearchView
 
 #
+
+
 urlpatterns = [
+    path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
+    path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
+
     path('admin/', admin.site.urls),
     path('about-us/', AboutUsPage.as_view(), name='about_us_url'),
     path('documentations/', DocumentationsView.as_view(), name='documentations_url'),
@@ -34,15 +39,17 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     # path('test/', include('ticket.urls')),
     path('faq/', include('others.urls', namespace='faq')),
+
+    path('portfolio', include('portfolio.urls', namespace='portfolio')),
+    path('admin-detail/', include('site_some_settings.urls', namespace='admin_detail')),
+
     re_path(r'^$', HomeList.as_view(), name='home_url'),
     path('', include('service.urls', namespace='service')),
 
-    path('portfolio', include('portfolio.urls', namespace='portfolio'))
-#
+
+
 ]
-
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

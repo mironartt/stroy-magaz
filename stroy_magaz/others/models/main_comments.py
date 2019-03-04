@@ -1,12 +1,14 @@
 from django.db import models
 
-from ckeditor_uploader.fields import RichTextUploadingField
-from django.urls import reverse
-
 
 
 class MainComments(models.Model):
+    """Раздел сайта 'Отзывы'"""
 
+    class Meta:
+        ordering = ('-updated',)
+        verbose_name = 'Отзывы'
+        verbose_name_plural = 'Отзывы'
 
     name_person = models.CharField(max_length=200, verbose_name='Имя того кто написал отзыв')
     email = models.CharField(max_length=200, verbose_name='Email')
@@ -20,17 +22,13 @@ class MainComments(models.Model):
 
     moderation = models.BooleanField(default=False, verbose_name='Модерация')
 
+    watched = models.BooleanField(default=False, verbose_name='Просмотрено')
 
 
     def __str__(self):
-        # return 'описание: {}'.format(self.descriptions)
         return self.name_person
 
 
-    class Meta:
-        ordering = ('-updated',)
-        verbose_name = 'Отзывы'
-        verbose_name_plural = 'Отзывы'
 
 
 

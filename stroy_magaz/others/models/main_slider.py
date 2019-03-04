@@ -1,15 +1,20 @@
 from django.db import models
-from ckeditor_uploader.fields import RichTextUploadingField
-from django.urls import reverse
-
 
 
 class MainSlider(models.Model):
+    """Настройки слайдера на главной странице"""
+
+    class Meta:
+        ordering = ('serial_number',)
+        verbose_name = 'Слайдер на главной странице'
+        verbose_name_plural = 'Слайдер на главной странице'
 
     title = models.CharField(max_length=50, blank=True, null=True, verbose_name='Заголовок')
     description = models.CharField(max_length=200, blank=True, null=True, verbose_name='Описание')
     image = models.ImageField(upload_to='main_slider', verbose_name='Изображение слайда')
     button_name = models.CharField(max_length=50, blank=True, null=True, verbose_name='Название кнопки')
+    button_name_coll_back = models.CharField(max_length=50, blank=True, null=True, verbose_name='Название кнопки обратного звонка')
+
     serial_number = models.PositiveIntegerField(default=1, verbose_name='Порядковый номер слайда')
 
     created = models.DateTimeField(auto_now_add=True, verbose_name='Создан')
@@ -17,11 +22,6 @@ class MainSlider(models.Model):
 
     def __str__(self):
         return self.title
-
-    class Meta:
-        ordering = ('serial_number',)
-        verbose_name = 'Слайдер на главной странице'
-        verbose_name_plural = 'Слайдер на главной странице'
 
     def image_img(self):
         if self.image:

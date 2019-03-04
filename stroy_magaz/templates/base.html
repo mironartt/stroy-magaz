@@ -148,61 +148,9 @@
 
             {% include 'includes/list_portflio_obj.html' %}
 
-            {% if coll_back.avalible %}
-                <main>
-                    <section class="widget widget_ci-custom-content widget-padded">
-                        <div class="widget-wrap wrap-extra-pad" style="background-image: url({% if coll_back.image %}{{ coll_back.image.url }}{% else %}http://placehold.it/1920x600{% endif %}); color: #fff;">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-xs-12">
-                                        <div class="hero-content text-center">
-                                            {% if coll_back.title %}
-                                                <h2 style="text-shadow: 0 0 7px red;" class="hero-title">{{ coll_back.title }}</h2>
-                                            {% else %}
-                                                <h2 style="text-shadow: 0 0 7px red;" class="hero-title">Обратный звонок</h2>
-                                            {% endif %}
-                                            {% if coll_back.description %}
-                                                <div class="hero-content-text">
-                                                    <p style="text-shadow: 0 0 3px blue;">{{ coll_back.description }}</p>
-                                                </div>
-                                            {% endif %}
-                                            {% if coll_back.btn_name %}
-                                                <a href="{% url 'coll_bacl_form_url' %}" class="btn btn-lg">{{ coll_back.btn_name }}<i class="fa fa-caret-right"></i></a>
-                                            {% else %}
-                                                <a href="{% url 'coll_bacl_form_url' %}" class="btn btn-lg">Перезвонить<i class="fa fa-caret-right"></i></a>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
+            {% include 'includes/coll_back.html' %}
 
-                </main><br><br>
-            {% endif %}
-
-            {% if partners %}
-
-                <section class="widget widget_ci-clients widget-padded">
-                    <div class="widget-wrap" style="background-color: #362F2D; color: #fff;">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <div class="section-title-wrap">
-                                        <h2 class="section-title">Наши партнеры</h2>
-                                        <p class="section-subtitle">И бренды с которыми мы сотрудничаем</p>
-                                    </div>
-                                    <div class="client-list">
-                                        {% for partner in partners %}
-                                            <a {% if partner.link %}href="{{ partner.link }}"{% endif %} target="_blank"><img src="{{ partner.image.url }}" style="height: 100px; width: 120px;" alt=""></a>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            {% endif %}
+            {% include 'includes/partners.html' %}
 
 
 
@@ -237,3 +185,26 @@
 	</body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

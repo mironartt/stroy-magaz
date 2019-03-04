@@ -1,12 +1,11 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
-from django.views import View
+from django.http import HttpRequest
+
 from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
 from django.db.models import Sum
 from .models.faq import Faq
 from service.models.kindworks import KindWorks
-from service.models.service import Service
 from site_some_settings.mixins import KindWorkMixin
 from .models.about_us import AboutUs
 from .models.main_comments import MainComments
@@ -16,46 +15,40 @@ from .models.order import Order
 from .forms import OrderCreateForm
 from .models.documentation import Documentation
 from site_some_settings.models import SiteSettings
+from .tasks import mail_sent_create_order, mail_sent_create_coll_back, mail_sent_create_main_comment
+
 
 
 class ListFaq(ListView, KindWorkMixin):
-    """
-    Страница FAQ
-    """
+    """Страница FAQ"""
     model = Faq
     template_name = 'faq/faq_list.html'
 
     def get_context_data(self, *args, **kwargs):
         data = super(ListFaq, self).get_context_data(*args, **kwargs)
         data['faq'] = self.model.objects.all()
-        # data['topics'] = Topic.objects.all()
 
         return data
 
 
 
-
-
 class AboutUsPage(ListView, KindWorkMixin):
-    """
-    Страница о нас
-    """
+    """Страница о нас"""
+
     model = AboutUs
     template_name = 'about_us/about_us.html'
 
     def get_context_data(self, *args, **kwargs):
         data = super(AboutUsPage, self).get_context_data(*args, **kwargs)
         data['aboutus'] = self.model.objects.first()
-        # data['topics'] = Topic.objects.all()
 
         return data
 
 
 
 class Contact(ListView, KindWorkMixin):
-    """
-    Страница контакты
-    """
+    """Страница контакты"""
+
     model = AboutUs
     template_name = 'contacts/contacts.html'
 
@@ -69,14 +62,9 @@ class Contact(ListView, KindWorkMixin):
 
 
 
-
-
-
-
 class MainCommentsView(ListView, KindWorkMixin):
-    """
-    Оботражения и создание отзывов
-    """
+    """Оботражения и создание отзывов"""
+
     model = MainComments
     template_name = 'main_comments/main_comments.html'
 
@@ -95,45 +83,9 @@ class MainCommentsView(ListView, KindWorkMixin):
         return data
 
 
-                                            # def post(self, request, *args, **kwargs):
-                                            #
-                                            #     site_settings = SiteSettings.objects.first()
-                                            #     kindworks = KindWorks.objects.all()
-                                            #     about_us = AboutUs.objects.first()
-                                            #     documentations = Documentation.objects.all()
-                                            #
-                                            #
-                                            #
-                                            #     if request.method == 'POST':
-                                            #         comment_form = MainCommentsForm(request.POST)
-                                            #         if comment_form.is_valid():
-                                            #
-                                            #             comment_form.save()
-                                            #
-                                            #             return redirect('/comments/')
-                                            #     else:
-                                            #         comment_form = MainCommentsForm()
-                                            #
-                                            #     context = {
-                                            #         'comment_form': comment_form,
-                                            #         'documentations': documentations,
-                                            #         'about_us': about_us,
-                                            #         'site_settings': site_settings,
-                                            #         'kindworks': kindworks,
-                                            #     }
-                                            #
-                                            #     return render(request, 'main_comments/main_comments.html', context=context)
-
-
-
-
-
-
-
 class CollBackView(ListView, KindWorkMixin):
-    """
-    Заказ обратного звонка
-    """
+    """Заказ обратного звонка"""
+
     model = CollBack
     template_name = 'coll_back/coll_back_form.html'
 
@@ -147,20 +99,30 @@ class CollBackView(ListView, KindWorkMixin):
 
 
 def add_coll_back(request,):
-
+    """
+        Пост обработка данных из формы создания заказа обратного звонка
+        Отправления письма на емайл
+    """
     сoll_back = CollBack.objects.first()
-    comment_form = CollBackClientForm(request.POST)
-
 
     if request.method == 'POST':
         comment_form = CollBackClientForm(request.POST)
         if comment_form.is_valid():
 
-            comment_form.save()
+            order = comment_form.save()
+
+            """Подготовка данных к отправке и отправка емейла клиенту и админу"""
+            site_settings = SiteSettings.objects.first()
+            if site_settings.alert_new_coll_back_order:
+                info = []
+                info.extend((order.name_client, order.phone_client, order.coll_time, order.description_client))
+                info.append(
+                    (HttpRequest.get_host(request) + '/admin/others/collbackclient/' + str(order.id) + '/change/'))
+                mail_sent_create_coll_back.delay(info)
 
             return redirect('/coll-back/success/')
     else:
-        comment_form = CollBackClientForm()
+        comment_form = CollBackClientForm(request.POST)
 
     site_settings = SiteSettings.objects.first()
     kindworks = KindWorks.objects.all()
@@ -180,19 +142,8 @@ def add_coll_back(request,):
 
 
 
-
-
-
-
-
-
-
-
-
 class CollBackSuccessView(ListView, KindWorkMixin):
-    """
-    Если форма обратного звонка заполнено правильно, редирект сюда
-    """
+    """Если форма обратного звонка заполнено правильно, редирект сюда"""
     model = CollBack
     template_name = 'coll_back/success.html'
 
@@ -205,19 +156,9 @@ class CollBackSuccessView(ListView, KindWorkMixin):
         return data
 
 
-
-
-
-
-
-
-
-
-
 class OrderCreateView(ListView, KindWorkMixin):
-    """
-    Форма создания заказа
-    """
+    """Форма создания заказа"""
+
     model = Order
     template_name = 'order/order_create_form.html'
 
@@ -229,46 +170,29 @@ class OrderCreateView(ListView, KindWorkMixin):
         return data
 
 
-                                                            # def post(self, request, *args, **kwargs):
-                                                            #
-                                                            #     order_create_form = OrderCreateForm()
-                                                            #
-                                                            #
-                                                            #     if request.method == 'POST':
-                                                            #         comment_form = OrderCreateForm(request.POST, request.FILES)
-                                                            #         if comment_form.is_valid():
-                                                            #
-                                                            #             comment_form.save()
-                                                            #
-                                                            #             return redirect('/order-create/success/')
-                                                            #     else:
-                                                            #         order_create_form = OrderCreateForm()
-                                                            #     site_settings = SiteSettings.objects.first()
-                                                            #     kindworks = KindWorks.objects.all()
-                                                            #     about_us = AboutUs.objects.first()
-                                                            #     documentations = Documentation.objects.all()
-                                                            #
-                                                            #     context = {
-                                                            #         'order_create_form': order_create_form,
-                                                            #         'documentations': documentations,
-                                                            #         'about_us': about_us,
-                                                            #         'site_settings': site_settings,
-                                                            #         'kindworks': kindworks,
-                                                            #     }
-                                                            #
-                                                            #     return render(request, 'order/order_create_form.html', context=context)
-
 
 def create_order(request):
-
-    order_create_form = OrderCreateForm()
+    """
+        Пост обработка данных из формы создания заказа
+        Отправления письма на емайл
+    """
     order_create_form = OrderCreateForm(request.POST, request.FILES)
 
     if request.method == 'POST':
 
         if order_create_form.is_valid():
+            """Сохранение данных из формы"""
+            order = order_create_form.save()
 
-            order_create_form.save()
+            """Подготовка данных к отправке и отправка емейла клиенту и админу"""
+            info = []
+            info.extend((order.name_client, order.phone_client, order.email_client, order.subject_work, order.description_client))
+            info.append(
+                (HttpRequest.get_host(request) + '/admin/others/order/' + str(order.id) + '/change/'))
+            if order.file:
+                info.append((HttpRequest.get_host(request) + order.file.url))
+
+            mail_sent_create_order.delay(info)
 
             return redirect('/order-create/success/')
     else:
@@ -293,28 +217,20 @@ def create_order(request):
 
 
 class OrderCreateSuccessView(ListView, KindWorkMixin):
-    """
-    Если форма создания заказа была заполнена верно перенаправляет сюда
-    """
+    """Если форма создания заказа была заполнена верно перенаправляет сюда"""
+
     model = Order
     template_name = 'order/success.html'
 
     def get_context_data(self, *args, **kwargs):
         data = super(OrderCreateSuccessView, self).get_context_data(*args, **kwargs)
 
-
         return data
 
 
 
-
-
-
-
 class DocumentationsView(ListView, KindWorkMixin):
-    """
-    Форма отображения докуменации
-    """
+    """Форма отображения докуменации"""
 
     model = Documentation
     template_name = 'documentations/documentations.html'
@@ -328,63 +244,42 @@ class DocumentationsView(ListView, KindWorkMixin):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def add_comment(request):
-    kindworks = KindWorks.objects.all()
-    # if Images.objects.first():
-    #     images = Images.objects.get(id=1)
-    # else:
-    images = None
-    list = Service.objects.all()
-    # home_page_text = HomePageText.objects.first()
-    # main_sliders = MainSlider.objects.all()
-    about_us = AboutUs.objects.first()
-    # p_objects = Portfolio.objects.all()
-    # partners = Partners.objects.all()
-    # coll_back = CollBack.objects.first()
-    # documentations = Documentation.objects.all()
+    """
+        Пост обработка данных из формы добавления отзыва на сайт
+        Отправления письма на емайл
+    """
+
     site_settings = SiteSettings.objects.first()
-
-
+    kindworks = KindWorks.objects.all()
+    about_us = AboutUs.objects.first()
+    documentations = Documentation.objects.all()
 
     if request.method == 'POST':
         comment_form = MainCommentsForm(request.POST)
         if comment_form.is_valid():
 
-            comment_form.save()
+            comment = comment_form.save()
+
+            """Подготовка данных к отправке и отправка емейла клиенту и админу"""
+            site_settings = SiteSettings.objects.first()
+            info = []
+            info.extend((comment.name_person, comment.email, comment.phone, comment.job_satisfaction, comment.kind_job, comment.comment_body))
+            info.append((HttpRequest.get_host(request) + '/comments/'))
+            info.append(
+                (HttpRequest.get_host(request) + '/admin/others/maincomments/' + str(comment.id) + '/change/'))
+            mail_sent_create_main_comment.delay(info)
 
             return redirect('/comments/')
     else:
         comment_form = MainCommentsForm()
 
-
-
-
     context = {
         'comment_form': comment_form,
+        'documentations': documentations,
+        'about_us': about_us,
         'site_settings': site_settings,
         'kindworks': kindworks,
-        'images': images,
-        'list': list,
-        'about_us': about_us,
-
     }
     return render(request, 'main_comments/main_comments.html', context=context)
 

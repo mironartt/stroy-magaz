@@ -114,7 +114,11 @@
                         </div>
                         <div class="col-lg-3 col-xs-12">
                             <aside class="widget">
-                                <h3 class="widget-tilte">Заказать расчет работ</h3>
+                                {% if about_us.title_notes %}
+                                    <h3 class="widget-tilte">{{ about_us.title_notes }}</h3>
+                                {% else %}
+                                    <h3 class="widget-tilte">Заказать расчет работ</h3>
+                                {% endif %}
                                 {% if about_us.notes %}
                                     {{ about_us.notes }}
                                 {% endif %}

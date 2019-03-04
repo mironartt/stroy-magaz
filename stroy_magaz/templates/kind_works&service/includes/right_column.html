@@ -5,17 +5,10 @@
         {% if request.path != '/kind-works/'%}
             {% include 'components/add_comment-button.html' %}
         {% endif %}
-        <aside class="widget widget_search group">
-            {% include 'components/serch_forms.html' %}
-        </aside>
         <aside class="widget widget_categories group">
             {% include 'kind_works&service/includes/include/list_service.html' %}
         </aside>
-        <!-- /widget -->
-        <!-- For a list of all supported social icons please see: http://fontawesome.io/icons/#brand -->
-        <aside class="widget widget_ci_social_widget ci-socials group">
-            {% include 'components/social.html' %}
-        </aside>
+
     </div>
 </div>
 

@@ -1,10 +1,15 @@
 from django.db import models
 
-from ckeditor_uploader.fields import RichTextUploadingField
-from django.urls import reverse
-
 
 class CollBackClient(models.Model):
+    """
+        Заказы клиентов на обратный звонок
+    """
+
+    class Meta:
+        ordering = ('-updated',)
+        verbose_name = 'Заказ клиента на звонок'
+        verbose_name_plural = 'Заказ клиента на звонок'
 
     name_client = models.CharField(max_length=200, verbose_name='Имя клиента')
     phone_client = models.CharField(max_length=100, verbose_name='Телефон клиента')
@@ -14,20 +19,26 @@ class CollBackClient(models.Model):
     created = models.DateTimeField(auto_now_add=True, verbose_name='Создан')
     updated = models.DateTimeField(auto_now=True, verbose_name='Обновлен')
 
+    watched = models.BooleanField(default=False, verbose_name='Просмотрено')
+
 
     def __str__(self):
         # return 'описание: {}'.format(self.descriptions)
         return self.name_client
 
 
-    class Meta:
-        ordering = ('-updated',)
-        verbose_name = 'Заказ клиента на звонок'
-        verbose_name_plural = 'Заказ клиента на звонок'
-
 
 
 class CollBack(models.Model):
+    """
+        Настройка отображения и вида форм обратного звонка на главной странице
+        Только одна модель
+    """
+
+    class Meta:
+
+        verbose_name = 'Настройки страницы заказа обратного звонка (только одна модель)'
+        verbose_name_plural = 'Настройки страницы заказа обратного звонка (только одна модель)'
 
     title = models.CharField(max_length=200, blank=True, null=True, verbose_name='Заголовок')
     description = models.CharField(max_length=500, blank=True, null=True, verbose_name='Описание')
@@ -36,10 +47,7 @@ class CollBack(models.Model):
     image = models.ImageField(upload_to='coll_back', blank=True, null=True, verbose_name='Изображение')
     avalible = models.BooleanField(default=True, verbose_name='Доступность обратного звонка')
 
-
-
-
-
+    """Изображение в админке"""
     def image_img(self):
         if self.image:
             from django.utils.safestring import mark_safe
@@ -50,14 +58,7 @@ class CollBack(models.Model):
     image_img.short_description = 'Картинка'
     image_img.allow_tags = True
 
-
-
     def __str__(self):
-        # return 'описание: {}'.format(self.descriptions)
         return self.title
 
 
-    class Meta:
-
-        verbose_name = 'Настройки страницы заказа обратного звонка'
-        verbose_name_plural = 'Настройки страницы заказа обратного звонка'

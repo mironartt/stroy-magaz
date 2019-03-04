@@ -25,6 +25,7 @@ SECRET_KEY = '2n@=k_8zpwwllo3@am5(txqjma(f8zp(#7llhi(6@szow%(i9v'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# ALLOWED_HOSTS = ['truuba.ru', '194.58.108.126', 'www.truuba.ru']
 ALLOWED_HOSTS = []
 
 
@@ -32,6 +33,8 @@ ALLOWED_HOSTS = []
 
 
 INSTALLED_APPS = [
+    'jet.dashboard',
+    'jet',
     'ckeditor',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -124,10 +127,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
-
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
+LANGUAGE_CODE = 'ru-ru'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
@@ -140,12 +141,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 
+# STATIC_ROOT = '/home/django/stroy-magaz/stroy_magaz/static/static/'
+# MEDIA_ROOT = '/home/django/stroy-magaz/stroy_magaz/static/media/'
+#
+# STATICFILES_DIRS = [
+#     '/home/django/stroy-magaz/stroy_magaz/static/static_in_dev/',
+# ]
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static/static_in_dev'),
 ]
+
+
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
@@ -154,7 +164,7 @@ CKEDITOR_UPLOAD_PATH = 'media/ckeditor/'
 # CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
 
 
-
+"""Настройки редактора ckeditor"""
 
 CKEDITOR_BROWSE_SHOW_DIRS = True
 
@@ -226,6 +236,30 @@ CKEDITOR_CONFIGS = {
 }
 
 
+
+
+"""Настройки админ панели - JET"""
+# JET_DEFAULT_THEME = 'green'
+JET_INDEX_DASHBOARD = 'stroy_magaz.dashboard.CustomIndexDashboard'
+
+# JET_SIDE_MENU_CUSTOM_APPS = [
+#     ('portfolio',
+#      [ # Each list element is a tuple with application name (app_label) and list of models
+#         'PortfolioComments',
+#     ]),
+# ]
+
+
+
+
+
+"""Настройки smpt"""
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "truuuuuuubaaa@gmail.com"
+EMAIL_HOST_PASSWORD = "a22448866"
+EMAIL_USE_TLS = True
 
 
 

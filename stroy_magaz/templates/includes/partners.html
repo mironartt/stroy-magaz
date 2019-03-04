@@ -1,0 +1,25 @@
+{% if partners %}
+    <section class="widget widget_ci-clients widget-padded">
+        <div class="widget-wrap" style="background-color: #362F2D; color: #fff;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="section-title-wrap">
+                            <h2 class="section-title">Наши партнеры</h2>
+                            <p class="section-subtitle">И бренды с которыми мы сотрудничаем</p>
+                        </div>
+                        <div class="client-list">
+                        <div class="col-md-12">
+                            {% for partner in partners %}
+                                <div class="col-md-3">
+                                    <a {% if partner.link %}href="{{ partner.link }}"{% endif %} target="_blank"><img src="{{ partner.image.url }}"  alt=""></a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endif %}

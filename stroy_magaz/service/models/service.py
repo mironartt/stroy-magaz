@@ -28,6 +28,16 @@ def generate_filename(instance, filename):
 
 
 class Service(models.Model):
+    """
+        Разделс сайта "Предоставляемые услуги" (подклас типов работ)
+    """
+
+    class Meta:
+        ordering = ('name',)
+        index_together = (('id', 'slug'),)
+        verbose_name = 'Наименование работ (подкласс тематики работ)'
+        verbose_name_plural = '3. Предоставлямемые услуги (подкласс тематики работ)'
+
 
     kindworks = models.ForeignKey(KindWorks, on_delete=models.CASCADE, verbose_name='Отношение к тематике работ')
     name = models.CharField(max_length=200, verbose_name='Наименование работ')
@@ -43,20 +53,9 @@ class Service(models.Model):
     unit = models.ForeignKey(Unit, on_delete=models.DO_NOTHING, blank=True, null=True, verbose_name='Единица измерения')
     gallery_availability = models.BooleanField(default=True, verbose_name='Отобраать галлерею изображений в конце страницы')
 
-    class Meta:
-        ordering = ('name',)
-        index_together = (('id', 'slug'),)
-        verbose_name = 'Наименование работ'
-        verbose_name_plural = 'Предоставлямемые услуги'
-
-
-
     def get_list_images(self):
         list = self.image.get_queryset()
         return list
-
-
-
 
     def __str__(self):
         return self.name
@@ -70,8 +69,6 @@ class Service(models.Model):
 
     image_img.short_description = 'Картинка'
     image_img.allow_tags = True
-
-
 
     def get_absolute_url(self):
         return reverse('service:service_detail_url', args=[self.slug])

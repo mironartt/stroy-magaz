@@ -1,26 +1,21 @@
 from django.shortcuts import render, redirect
-from django.views import View
+from django.http import HttpRequest
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from .models.service import Service
-from .models.images import Images
-
-from .models.service import Service
-
 from service.models.kindworks import KindWorks
 from others.models.about_us import AboutUs
 from others.models.documentation import Documentation
 from site_some_settings.models import SiteSettings
-
 from site_some_settings.mixins import KindWorkMixin
 from .forms import KindWorksCommentsForm, ServiceCommentsForm
 from .models.comments import KindWorksComments, ServiceComments
-
+from .tasks import mail_sent_create_kind_work_comment, mail_sent_create_services_comment
 
 
 class DetailKindWork(DetailView, KindWorkMixin):
     """
-    Оботражает конкретную тематику работ и обрабатывает коментарии к ней
+        Оботражает конкретную тематику работ и обрабатывает коментарии к ней
     """
 
     model = KindWorks
@@ -41,7 +36,6 @@ class DetailKindWork(DetailView, KindWorkMixin):
 
     def post(self, request, *args, **kwargs):
 
-        comment_form = KindWorksCommentsForm()
         site_settings = SiteSettings.objects.first()
         kindworks = KindWorks.objects.all()
         about_us = AboutUs.objects.first()
@@ -56,10 +50,17 @@ class DetailKindWork(DetailView, KindWorkMixin):
                 instance = comment_form.instance
                 instance.parent_object = p_obj.id
 
+                comment = comment_form.save()
 
-                comment_form.save()
+                """Подготовка данных к отправке и отправка емейла клиенту и админу"""
+                info = []
+                info.extend((comment.parent_object, comment.name_person, comment.email, comment.comment_body))
+                info.append((HttpRequest.get_host(request) + '/kind-works/'+ str(p_obj.slug)  + '#form-wrapper'))
+                info.append((HttpRequest.get_host(request) + '/admin/service/kindworkscomments/' + str(comment.id) + '/change/'))
+                # print(info)
+                mail_sent_create_kind_work_comment.delay(info)
 
-                return redirect('/kind-works/'+ str(p_obj.slug)+'#form-wrapper')
+                return redirect('/kind-works/'+ str(p_obj.slug) + '#form-wrapper')
         else:
             comment_form = KindWorksCommentsForm()
 
@@ -75,7 +76,7 @@ class DetailKindWork(DetailView, KindWorkMixin):
 
 class ListKindWork(ListView, KindWorkMixin):
     """
-    Отображает все типы работ
+        Отображает все типы работ
     """
 
     model = KindWorks
@@ -85,7 +86,7 @@ class ListKindWork(ListView, KindWorkMixin):
         data = super(ListKindWork, self).get_context_data(*args, **kwargs)
         data['kind_works'] = self.model.objects.all()
 
-        # data['sdf'] = Images.objects.all()
+
 
         return data
 
@@ -94,7 +95,7 @@ class ListKindWork(ListView, KindWorkMixin):
 
 class ServiceDetail(DetailView, KindWorkMixin):
     """
-    Отображает конкретную услугу и обрабатывает коментарии связынные с ней
+        Отображает конкретную услугу и обрабатывает коментарии связынные с ней
     """
 
     model = Service
@@ -127,7 +128,15 @@ class ServiceDetail(DetailView, KindWorkMixin):
                 instance = comment_form.instance
                 instance.parent_object = p_obj.id
 
-                comment_form.save()
+                comment = comment_form.save()
+
+                """Подготовка данных к отправке и отправка емейла клиенту и админу"""
+                info = []
+                info.extend((comment.parent_object, comment.name_person, comment.email, comment.comment_body))
+                info.append((HttpRequest.get_host(request) + '/kind-works/service/' + str(p_obj.slug)  + '#form-wrapper'))
+                info.append((HttpRequest.get_host(request) + '/admin/service/servicecomments/' + str(comment.id) + '/change/'))
+                print(info)
+                mail_sent_create_services_comment.delay(info)
 
                 return redirect('/kind-works/service/' + str(p_obj.slug) + '#form-wrapper')
         else:
@@ -141,3 +150,5 @@ class ServiceDetail(DetailView, KindWorkMixin):
                    }
 
         return render(request, 'kind_works&service/service_deail.html', context=context)
+
+
