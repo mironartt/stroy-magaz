@@ -25,7 +25,7 @@ SECRET_KEY = '_________________________________________________'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ['truuba.ru', '194.58.108.126', 'www.truuba.ru']
+# ALLOWED_HOSTS = ['truuba.ru', 'www.truuba.ru']
 ALLOWED_HOSTS = []
 
 
